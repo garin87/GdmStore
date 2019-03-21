@@ -1,0 +1,19 @@
+﻿
+.main-container {
+    padding-top: 0px !important;
+    padding: 5px;
+}
+
+.product-type {
+    padding: 5px;
+    margin-bottom: 5px;
+}
+
+.diameter {
+    border-bottom: 1px solid black;
+    padding-bottom: 5px;
+}
+
+.type {
+    padding-bottom: 5px;
+}
