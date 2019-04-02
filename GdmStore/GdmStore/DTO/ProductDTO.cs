@@ -16,11 +16,6 @@ namespace GdmStore.DTO
         public int ProductTypeId { get; set; }
         public string NameType { get; set; }
 
-        public int ParameterId { get; set; }
-        public string Name { get; set; }
-
-        public int ProductParameterId { get; set; }
-        public string Value { get; set; }
-
+        public ICollection<ParameterDTO> Parameters { get; set; } = new List<ParameterDTO>();
     }
 }

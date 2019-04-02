@@ -2,18 +2,20 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace GdmStore.Models
 {
     public class ProductParameter //: BaseObject
     {
-        public int ProductParameterId { get; set; }
+        public int Id { get; set; }
 
         public int ProductId { get; set; }
-        public int ParameterId { get; set; }
+        public virtual Product Product { get; set; }
 
-        public Parameter Parameter { get; set; }
-        public Product Product { get; set; }
+        public int ParameterId { get; set; }
+        public virtual Parameter Parameter { get; set; }
+
 
         public string Value { get; set; }
 

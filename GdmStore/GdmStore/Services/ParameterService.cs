@@ -21,7 +21,7 @@ namespace GdmStore.Services
 
         public async Task<IEnumerable<Parameter>> GetAll()
         {
-            return _context.Parameters.ToList();
+            return await _context.Parameters.ToListAsync();
         }
 
         public async Task<Parameter> GetParameter(long id)
@@ -48,7 +48,7 @@ namespace GdmStore.Services
 
         public async Task<Parameter> UpdateParameter(long id, Parameter parameter)
         {
-            Parameter p = await GetParameter(parameter.ParameterId);
+            Parameter p = await GetParameter(parameter.Id);
             p.Name = parameter.Name;
            // p.Description = parameter.Description;
           //  p.SteelGrade = parameter.SteelGrade;

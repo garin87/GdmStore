@@ -55,7 +55,7 @@ namespace GdmStore.Controllers
                 return BadRequest(ModelState);
             }
 
-            if (id != productType.ProductTypeId)
+            if (id != productType.Id)
             {
                 return BadRequest();
             }
@@ -93,7 +93,7 @@ namespace GdmStore.Controllers
             _context.ProductTypes.Add(productType);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetProductType", new { id = productType.ProductTypeId }, productType);
+            return CreatedAtAction("GetProductType", new { id = productType.Id }, productType);
         }
 
         // DELETE: api/ProductTypes/5
@@ -119,7 +119,7 @@ namespace GdmStore.Controllers
 
         private bool ProductTypeExists(int id)
         {
-            return _context.ProductTypes.Any(e => e.ProductTypeId == id);
+            return _context.ProductTypes.Any(e => e.Id == id);
         }
     }
 }

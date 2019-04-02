@@ -66,44 +66,42 @@
     <div class="container-fluid represent-product">
         <div class="row">
             <div class="col-1 font-weight-bold">Id</div>
-            <div class="col font-weight-bold">Имя товара</div>
+            <div class="col font-weight-bold">Тип иовара</div>
             <div class="col font-weight-bold">Номер</div>
             <div class="col font-weight-bold">Диаметр</div>
-            <div class="col font-weight-bold">Тип</div>
+            <div class="col font-weight-bold ">Количество</div>
             <div class="col font-weight-bold ">Производитель</div>
             <div class="col font-weight-bold ">ЦенаEUR</div>
-            <div class="col font-weight-bold ">Количество</div>
-            <div class="col"></div>
-
             <form>
                 <div class="row p-2">
-                    <div class="col-1"></div>
-                    <div class="col">
-                        <input name="NameType" class="form-control" />
+                    <div class="col"></div>
+                        <div class="col form-group">
+                            <select class="form-control" id="TypeProduct">
+                                <option>Штоки хромированные</option>
+                                <option>Трубы хонингованные</option>
+                            </select>
+                        </div>
+                        <div class="col">
+                            <input name="Number" class="form-control" />
+                        </div>
+                        <div class="col">
+                            <input name="Diameter" class="form-control" />
+                        </div>
+
+                        <div class="col">
+                            <input name="Description" class="form-control" />
+                        </div>
+                        <div class="col">
+                            <input name="PrimeCostEUR" class="form-control" />
+                        </div>
+                        <div class="col">
+                            <input name="Amount" class="form-control" />
+                        </div>
+                        <div class="col">
+                            <button type="submit" class="btn btn-primary">Добавить</button>
+                        </div>
                     </div>
-                    <div class="col">
-                        <input name="Number" class="form-control" />
-                    </div>
-                    <div class="col">
-                        <input name="Diameter" class="form-control" />
-                    </div>
-                    <div class="col">
-                        <input name="TypeProduct" class="form-control" />
-                    </div>
-                    <div class="col">
-                        <input name="Description" class="form-control" />
-                    </div>
-                    <div class="col">
-                        <input name="PrimeCostEUR" class="form-control" />
-                    </div>
-                    <div class="col">
-                        <input name="Amount" class="form-control" />
-                    </div>
-                    <div class="col">
-                        <button type="submit" class="btn btn-primary">Добавить</button>
-                    </div>
-                </div>
-            </form>
+</form>
         </div>
         <div id="list-param-products">
             <div class="row text-left list-param">

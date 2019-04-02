@@ -21,7 +21,7 @@ namespace GdmStore.Services
 
         public async Task<IEnumerable<T>> GetAll()
         {
-            return  _context.Set<T>().ToList();
+            return await _context.Set<T>().ToListAsync();
         }
 
         public async Task<T> GetItem(long id)

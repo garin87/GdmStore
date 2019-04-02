@@ -10,7 +10,5 @@ namespace GdmStore.DTO
         public int ProductTypeId { get; set; }
         public string NameType { get; set; }
 
-        public int ParameterId { get; set; }
-        public string Name { get; set; }
     }
 }

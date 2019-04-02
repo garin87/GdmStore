@@ -95,7 +95,7 @@ namespace GdmStore
                 return BadRequest(ModelState);
             }
 
-            if (id != product.ProductId)
+            if (id != product.Id)
             {
                 return BadRequest();
             }
@@ -109,9 +109,9 @@ namespace GdmStore
         //GET: api/Products/TestProducts/1
         [HttpGet]
         [Route("TestProducts/{id}")]
-        public async Task<IList<Product>> TestProducts([FromRoute] int ProductTypeId)
+        public async Task<IList<Product>> TestProducts(int id)
         {
-            return await _productService.TestProducts(ProductTypeId);
+            return await _productService.TestProducts(id);
         }
 
         //GET: api/Products/GetProducts/1
@@ -120,6 +120,21 @@ namespace GdmStore
         public async Task<IEnumerable<ProductDTO>> GetProducts([FromRoute] int id)
         {
             return await _productService.GetProducts(id);
+        }
+
+        [HttpPost]
+        [Route("AddProducts")]
+        public async Task<ProductDTO> AddProducts(ProductDTO ProductDTO)
+        {
+            return await _productService.AddProducts(ProductDTO);
+        }
+
+
+        [HttpPut]
+        [Route("UpdateProducts/{id}")]
+        public async Task<ProductDTO> UpdateProducts(ProductDTO ProductDTO, int id)
+        {
+            return await _productService.UpdateProducts(ProductDTO, id);
         }
 
 

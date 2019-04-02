@@ -8,15 +8,11 @@ namespace GdmStore.Models
 {
     public class ProductType //: BaseObject
     {   
-        public int ProductTypeId { get; set; }
+        public int Id { get; set; }
 
         public string NameType { get; set; }
-
-        public ICollection<Product> Products { get; set; }
-        public ICollection<Parameter> Parameters { get; set; }
-
       
-        public ICollection<Parameter> Parameter { get; set; } = new List<Parameter>();
-        public ICollection<Product> Product { get; set; } = new List<Product>();
+        public ICollection<Parameter> Parameters { get; set; } = new List<Parameter>();
+        public ICollection<Product> Products { get; set; } = new List<Product>();
     }
 }

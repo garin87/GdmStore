@@ -59,7 +59,7 @@ namespace GdmStore
                 return BadRequest(ModelState);
             }
 
-            if (id != parameter.ParameterId)
+            if (id != parameter.Id)
             {
                 return BadRequest();
             }

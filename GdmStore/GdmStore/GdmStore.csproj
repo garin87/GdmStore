@@ -13,6 +13,18 @@
     <Compile Remove="Migrations\20190307092832_edit-seed-method.Designer.cs" />
     <Compile Remove="Migrations\20190320145420_add-initial-lists-model.cs" />
     <Compile Remove="Migrations\20190320145420_add-initial-lists-model.Designer.cs" />
+    <Compile Remove="Migrations\20190323082630_change-Dbcontext.cs" />
+    <Compile Remove="Migrations\20190323082630_change-Dbcontext.Designer.cs" />
+    <Compile Remove="Migrations\20190323082822_change-Dbcontext.cs" />
+    <Compile Remove="Migrations\20190323082822_change-Dbcontext.Designer.cs" />
+    <Compile Remove="Migrations\20190323200247_change-DBcontext.cs" />
+    <Compile Remove="Migrations\20190323200247_change-DBcontext.Designer.cs" />
+    <Compile Remove="Migrations\20190325212704_change-Dbcontext.cs" />
+    <Compile Remove="Migrations\20190325212704_change-Dbcontext.Designer.cs" />
+    <Compile Remove="Migrations\20190325214345_change-Dbcontext.cs" />
+    <Compile Remove="Migrations\20190325214345_change-Dbcontext.Designer.cs" />
+    <Compile Remove="Migrations\20190326182153_add-seeder.cs" />
+    <Compile Remove="Migrations\20190326182153_add-seeder.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>

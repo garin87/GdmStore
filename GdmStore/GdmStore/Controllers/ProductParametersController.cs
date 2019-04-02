@@ -55,7 +55,7 @@ namespace GdmStore
                 return BadRequest(ModelState);
             }
 
-            if (id != productParameter.ProductParameterId)
+            if (id != productParameter.Id)
             {
                 return BadRequest();
             }
@@ -93,7 +93,7 @@ namespace GdmStore
             _context.ProductParameters.Add(productParameter);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetProductParameter", new { id = productParameter.ProductParameterId }, productParameter);
+            return CreatedAtAction("GetProductParameter", new { id = productParameter.Id }, productParameter);
         }
 
         // DELETE: api/ProductParameters/5
@@ -119,7 +119,7 @@ namespace GdmStore
 
         private bool ProductParameterExists(int id)
         {
-            return _context.ProductParameters.Any(e => e.ProductParameterId == id);
+            return _context.ProductParameters.Any(e => e.Id == id);
         }
     }
 }
