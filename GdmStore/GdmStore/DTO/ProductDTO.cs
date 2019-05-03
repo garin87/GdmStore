@@ -12,6 +12,7 @@ namespace GdmStore.DTO
         public string Number { get; set; }
         public double Amount { get; set; }
         public double PrimeCostEUR { get; set; }
+        public string Manufacturer { get; set; }
 
         public int ProductTypeId { get; set; }
         public string NameType { get; set; }

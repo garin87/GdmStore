@@ -16,7 +16,6 @@ namespace GdmStore.Models
         public int ParameterId { get; set; }
         public virtual Parameter Parameter { get; set; }
 
-
         public string Value { get; set; }
 
     }

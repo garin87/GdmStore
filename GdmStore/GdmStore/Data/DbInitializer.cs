@@ -35,7 +35,8 @@ namespace GdmStore.Data
                new Parameter { ProductTypeId=2, Name="Тип трубы"},
                new Parameter { ProductTypeId=1, Name="Тип штока"},
                new Parameter { ProductTypeId=1, Name="Марка стали"},
-               new Parameter { ProductTypeId=1, Name="Диаметр"}
+               new Parameter { ProductTypeId=1, Name="Диаметр"},
+               new Parameter { ProductTypeId=2, Name="Диаметр"}
              };
 
             foreach (Parameter c in parameters)
@@ -46,11 +47,11 @@ namespace GdmStore.Data
 
             var products = new Product[]
           {
-               new Product {  Name="Шток хромированный", Number= "50-E-1",
-                   Amount =6.04, PrimeCostEUR = 34.65, ProductTypeId=1},
-               new Product {  Name="Шток хромированный", Number="50-V2-1",
+               new Product {  Name="Шток хромированный", Number= "50-E-1", Manufacturer = "HonBar",
+                   Amount =6.04, PrimeCostEUR = 34.65, ProductTypeId=1}, 
+               new Product {  Name="Шток хромированный", Number="50-V2-1", Manufacturer = "HonBar",
                    Amount =6.84, PrimeCostEUR = 39.87, ProductTypeId=1},
-               new Product {  Name="Труба хонингованная", Number="80*95-E-4",
+               new Product {  Name="Труба хонингованная", Number="80*95-E-4", Manufacturer = "HonBar",
                    Amount =7.24, PrimeCostEUR = 25.85, ProductTypeId=2}
           };
 

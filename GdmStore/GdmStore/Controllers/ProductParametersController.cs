@@ -6,6 +6,8 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using GdmStore.Models;
+using GdmStore.Services;
+using GdmStore.DTO;
 
 namespace GdmStore
 {
@@ -14,12 +16,15 @@ namespace GdmStore
     public class ProductParametersController : ControllerBase
     {
         private readonly DataContext _context;
+        private ProductParameterService _productParameterService;
 
         public ProductParametersController(DataContext context)
         {
             _context = context;
+            _productParameterService = new _ProductParameterService(_context);
         }
 
+       
         // GET: api/ProductParameters
         [HttpGet]
         public IEnumerable<ProductParameter> GetProductParameters()
@@ -120,6 +125,59 @@ namespace GdmStore
         private bool ProductParameterExists(int id)
         {
             return _context.ProductParameters.Any(e => e.Id == id);
+        }
+
+        //api/ProductParameters/GetProductDiameters/4?param=ТВЧ&paramId=2
+        [HttpGet]
+        [Route("GetProductParameters/{id}")]
+        public Task<IEnumerable<ProductParameter>> GetProductParameters(long id)
+        {
+            return  _productParameterService.GetProductParameters(id);
+        }
+
+        [HttpGet]
+        [Route("GetProductDiameters/{id}")]
+        public Task<List<string>> GetProductDiameters(int id, [FromQuery]string param, [FromQuery]int paramId)
+        {
+            return _productParameterService.GetProductDiameters(id, param, paramId);
+        }
+
+
+        [HttpGet]
+        [Route("GetProductByDiameter/{typeId}")]
+        public Task<IEnumerable<ProductDTO>> GetProductDiameters(int typeId, string param, int paramId, int paramDiameterId, string diameter)
+        {
+            return _productParameterService.GetProductsByDiameter(typeId, param, paramId, paramDiameterId, diameter);
+        }
+
+
+        [HttpGet]
+        [Route("GetSortProductParameters/{id}")]
+        public Task<IEnumerable<ProductParameter>> GetSortProductParameters(long id)
+        {
+            return _productParameterService.GetSortProductParameters(id);
+        }
+
+        [HttpGet]
+        [Route("GetSumSteelBars/{id}")]
+        public async Task<double> GetSumSteelBars(int value)
+        {
+            return await _productParameterService.GetSumSteelBars(value);
+        }
+
+        [HttpGet]
+        [Route("GetSumTubes/{id}")]
+        public async Task<double> GetSumTubes(int value)
+        {
+            return await _productParameterService.GetSumTubes(value);
+        }
+
+    }
+
+    internal class _ProductParameterService : ProductParameterService
+    {
+        public _ProductParameterService(DataContext context) : base(context)
+        {
         }
     }
 }

@@ -6,38 +6,19 @@
     <title>SportsStore</title>
     <link rel="stylesheet" href="./lib/CSS/mainStyle.css" />
     <link rel="stylesheet" href="./lib/bootstrap/dist/css/bootstrap.min.css" />
-   <script type="text/javascript" src="./lib/js/index.js"></script>
 </head>
 <body>
     <h3 class="p-2 bg-primary text-white text-center">Товары</h3>
     <div class="container-fluid main-container">
-        <div class="row product-type text-left">
-
-            <div class="col-2">
-                <button class="btn btn-success text-white" id="cylinder-tubes">Трубы хонингованные</button>
-            </div>
-            <div class="col-3">
-                <button class="btn btn-success text-white" id="piston-rods">Штоки хромированные</button>
-            </div>
+        <div class="row product-type text-left list-products" id="list-products">
         </div>
 
-        <div class="row type">
-            <h4 class="p-1 bg-primary text-white text-center col-12">
+        <div class="row type flex-column">
+            <h4 class="p-1 bg-primary text-white text-center">
                 Типы
             </h4>
-            <div class="row">
-                <div class="col" id="represent-type">
-                    <ul class="list-group list-group-horizontal-md" id="list-type">
-                        <li class="list-group-item">
-                            <button class="btn btn-success prd-type"></button>
-                        </li>
-                        <li class="list-group-item">
-                            <button class="btn btn-success prd-type"></button>
-                        </li>
-                        <li class="list-group-item">
-                            <button class="btn btn-success prd-type"></button>
-                        </li>
-                    </ul>
+            <div class="row flex-row">
+                <div class="col list-types text-left  flex-row" id="list-types">
                 </div>
             </div>
         </div>
@@ -46,18 +27,8 @@
                 Диаметры
             </h4>
             <div class="row">
-                <div class="col" id="represent-diameter">
-                    <ul class="list-group list-group-horizontal-md" id="list-diameter">
-                        <li class="list-group-item">
-                            <button class="btn btn-success product-diameter"></button>
-                        </li>
-                        <li class="list-group-item">
-                            <button class="btn btn-success product-diameter"></button>
-                        </li>
-                        <li class="list-group-item">
-                            <button class="btn btn-success product-diameter"></button>
-                        </li>
-                    </ul>
+                <div class="col list-diameters" id="list-diameters">
+                    
                 </div>
             </div>
         </div>
@@ -65,73 +36,78 @@
 
     <div class="container-fluid represent-product">
         <div class="row">
-            <div class="col-1 font-weight-bold">Id</div>
-            <div class="col font-weight-bold">Тип иовара</div>
-            <div class="col font-weight-bold">Номер</div>
-            <div class="col font-weight-bold">Диаметр</div>
-            <div class="col font-weight-bold ">Количество</div>
-            <div class="col font-weight-bold ">Производитель</div>
-            <div class="col font-weight-bold ">ЦенаEUR</div>
-            <form>
+            <form id="DataForm">
                 <div class="row p-2">
-                    <div class="col"></div>
-                        <div class="col form-group">
-                            <select class="form-control" id="TypeProduct">
-                                <option>Штоки хромированные</option>
-                                <option>Трубы хонингованные</option>
-                            </select>
-                        </div>
-                        <div class="col">
-                            <input name="Number" class="form-control" />
-                        </div>
-                        <div class="col">
-                            <input name="Diameter" class="form-control" />
-                        </div>
-
-                        <div class="col">
-                            <input name="Description" class="form-control" />
-                        </div>
-                        <div class="col">
-                            <input name="PrimeCostEUR" class="form-control" />
-                        </div>
-                        <div class="col">
-                            <input name="Amount" class="form-control" />
-                        </div>
-                        <div class="col">
-                            <button type="submit" class="btn btn-primary">Добавить</button>
-                        </div>
+                    <div class="col">Id</div>
+                    <div class="col-2 form-group">
+                        <label>Имя товара</label>
+                        <select name="productTypeId" class="form-control" id="TypeProduct">
+                            <option value="1">Штоки хромированные</option>
+                            <option value="2">Трубы хонингованные</option>
+                        </select>
                     </div>
-</form>
+                    <div class="col">
+                        <label>Номер</label>
+                        <input name="number" class="form-control" id="number" value="" />
+                    </div>
+                    <div class="col">
+                        <label>Диаметр</label>
+                        <input name="parameters[2].value" class="form-control" id="diametr" value="" />
+                    </div>
+
+                    <div class="col">
+                        <label>Производитель</label>
+                        <input name="manufacturer" class="form-control" id="manufacturer" value=""/>
+                    </div>
+                    <div class="col">
+                        <label>Тип</label>
+                        <input name="[parameters][0][]" class="form-control" id="TypeItem" value="" />
+                    </div>
+                    <div class="col">
+                        <label>Grade steel</label>
+                        <input name="parameters[]" class="form-control" id="GradeSteel" value="" />
+                    </div>
+                    <div class="col">
+                        <label>ЦенаEUR</label>
+                        <input name="primeCostEUR" class="form-control" id="primeCostEUR" value="" />
+                    </div>
+                    <div class="col">
+                        <label>Количество</label>
+                        <input name="amount" class="form-control" id="amount" value="" />
+                    </div>
+                    <div class="col justify-content-center btn-add">
+                        <button type="submit" class="btn btn-primary  button-add">Добавить</button>
+                    </div>
+                </div>
+            </form>
         </div>
+        <button id="allDeametr">Все диаметры</button>
+        <button id="sortDeametr">Сортировать диаметры</button>
         <div id="list-param-products">
-            <div class="row text-left list-param">
+
+            <div class="row text-left list-param" id="list-options">
                 <div class="col">Id</div>
                 <div class="col ">Имя товара</div>
                 <div class="col ">Номер</div>
                 <div class="col ">Диаметр</div>
-                <div class="col ">Тип</div>
                 <div class="col ">Производитель</div>
+                <div class="col ">Тип</div>
                 <div class="col ">ЦенаEUR</div>
+                <div class="col ">ЦенаBLR</div>
                 <div class="col ">Количество</div>
-                <div class="col">
-                    <form >
-                        <a asp-action="UpdateProduct" asp-route-key="@p.Id"
-                           class="btn btn-outline-primary">
-                            Edit
-                        </a>
-                        <input type="hidden" name="Id" value="@p.Id" />
-                        <button type="submit" class="btn btn-outline-danger">
-                            Delete
-                        </button>
-                    </form>
+                <div class="col-2">
+                    <div class="col"></div>
+                    <div class="col"></div>
                 </div>
             </div>
         </div>
-        <div class="text-center">
-            <a class="btn btn-primary">Edit All</a>
+        <div class="text-center text-white">
+            <a class="btn btn-primary">Групповое добавление</a>
         </div>
     </div>
-    <script src="lib/js/index.js"></script>
+    <script type="module" src="./lib/js/index.js"></script>
+    <script type="module" src="./lib/js/getOptions.js"></script>
+
 </body>
 
 </html>

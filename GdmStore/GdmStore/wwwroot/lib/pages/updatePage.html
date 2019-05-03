@@ -1,0 +1,65 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+    <link rel="stylesheet" href="../CSS/mainStyle.css" />
+    <link rel="stylesheet" href="../bootstrap/dist/css/bootstrap.min.css" />
+</head>
+<body>
+    <h3 class="p-2 bg-primary text-white text-center">Обновить продукт</h3>
+    <div class="container-fluid represent-product">
+        <div class="row">
+            <form id="updateProduct" method="put">
+                <div class="row p-2">
+                    <div class="col" > 
+                        <label>Id</label>
+                        <input name="id" class="form-control" id="productID" disabled/>
+                    </div>
+                    <div class="col-2 form-group">
+                        <label>Имя товара</label>
+                        <select class="form-control" id="TypeProductUpdate">
+                            <option value="1">Штоки хромированные</option>
+                            <option value="2">Трубы хонингованные</option>
+                        </select>
+                    </div>
+                    <div class="col">
+                        <label>Номер</label>
+                        <input name="Number" class="form-control" id="numberUpdate" />
+                    </div>
+                    <div class="col">
+                        <label>Диаметр</label>
+                        <input name="Diameter" class="form-control" id="diameterUpdate" />
+                    </div>
+                    <div class="col">
+                        <label>Производитель</label>
+                        <input name="manufacturer" class="form-control" id="manufacturerUpdate" />
+                    </div>
+                    <div class="col">
+                        <label>Тип</label>
+                        <input name="Type" class="form-control" id="typeUpdate" />
+                    </div>
+                    <div class="col">
+                        <label>Grade steel</label>
+                        <input name="parameters[]" class="form-control" id="gradeSteelUpdate" />
+                    </div>
+                    <div class="col">
+                        <label>ЦенаEUR</label>
+                        <input name="PrimeCostEUR" class="form-control" id="primeCostEURUpdate" />
+                    </div>
+                    <div class="col">
+                        <label>Количество</label>
+                        <input name="Amount" class="form-control" id="amountUpdate" />
+                    </div>
+                    <div class="col justify-content-center btn-add">
+                        <button type="submit" class="btn btn-primary  button-add" id="saveUpdate">Сохранить</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    
+    <script type="module" src="../js/updatePage.js"></script>
+    <script type="module" src="../js/getOptions.js"></script>
+</body>
+</html>

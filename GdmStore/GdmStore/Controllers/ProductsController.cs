@@ -124,7 +124,7 @@ namespace GdmStore
 
         [HttpPost]
         [Route("AddProducts")]
-        public async Task<ProductDTO> AddProducts(ProductDTO ProductDTO)
+        public async Task<ProductDTO> AddProducts([FromBody] ProductDTO ProductDTO)
         {
             return await _productService.AddProducts(ProductDTO);
         }
@@ -136,6 +136,42 @@ namespace GdmStore
         {
             return await _productService.UpdateProducts(ProductDTO, id);
         }
+
+        [HttpDelete]
+        [Route("DeleteProducts/{id}")]
+        public async Task<Product> DeleteProducts(int id)
+        {
+            return await _productService.DeleteProducts(id);
+        }
+
+        [HttpGet]
+        [Route("SortProducts/{id}")]
+        public async Task<IEnumerable<ProductDTO>> SortProducts([FromRoute] int id)
+        {
+            return await _productService.SortProducs(id);
+        }
+
+        [HttpGet]
+        [Route("GetProductParam/{id}")]
+        public async Task<IEnumerable<ProductDTO>> GetProductParam([FromRoute] int id)
+        {
+            return await _productService.GetProductParam(id);
+        }
+
+
+        //[HttpGet]
+        //[Route("SumProducts/{id}")]
+        //public double SumProducts([FromRoute] int id)
+        //{
+        //    return _productService.GetSumAll(id);
+        //}
+
+        //[HttpGet]
+        //[Route("SortProduct/{id}")]
+        //public async Task<Product> SortProduct(int id)
+        //{
+        //    return await _productService.SortProducs(id);
+        //}
 
 
         /*

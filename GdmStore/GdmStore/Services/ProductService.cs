@@ -7,8 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using GdmStore.Models;
 using GdmStore.DTO;
-
-
+using Microsoft.AspNetCore.Server.Kestrel.Core.Internal.Http;
 
 namespace GdmStore.Services
 {    
@@ -40,10 +39,12 @@ namespace GdmStore.Services
 
         public async Task<Product> DeleteProduct(int id)
         {
-            var product = await _context.Products.FindAsync(id);
+            Product product = _context.Products
+              .Where(o => o.Id == id)
+              .FirstOrDefault();
+
             _context.Products.Remove(product);
             await _context.SaveChangesAsync();
-
             return product;
         }
 
@@ -75,20 +76,25 @@ namespace GdmStore.Services
                                            .ToListAsync();
 
             var products = await _context.Products.Include(t => t.ProductParameters)
+                                         .Include(h => h.ProductType)   
                                          .Where(t => t.ProductTypeId == id)
+                                         
                                          .ToListAsync();
 
             var items = new List<ProductDTO>();
 
+           
             foreach (var product in products)
             {
                 var productDTO = new ProductDTO()
                 {
                     ProductId = product.Id,
                     Number = product.Number,
+                    Manufacturer =product.Manufacturer,
                     Amount = product.Amount,
                     PrimeCostEUR = product.PrimeCostEUR,
-                    ProductTypeId = product.ProductTypeId
+                    ProductTypeId = product.ProductTypeId,
+                    NameType = product.ProductType.NameType
                 };
 
                 foreach (var typeParam in typeParams)
@@ -102,12 +108,18 @@ namespace GdmStore.Services
                     }
                     paramDTO.ParameterId = typeParam.Id;
                     paramDTO.Name = typeParam.Name;
+                    
 
                     productDTO.Parameters.Add(paramDTO);
                 }
 
-                items.Add(productDTO);
+                 productDTO.Parameters.Where(y => y.ParameterId == 4)
+                 .OrderBy(t => t.Value)
+                 .ToList();
+
+                 items.Add(productDTO);
             }
+         
 
             return items;
 
@@ -126,6 +138,7 @@ namespace GdmStore.Services
                 Number = productDTO.Number,
                 Amount = productDTO.Amount,
                 PrimeCostEUR = productDTO.PrimeCostEUR,
+                Manufacturer = productDTO.Manufacturer
             };
 
             _context.Products.Add(product);
@@ -152,15 +165,15 @@ namespace GdmStore.Services
     public async Task<ProductDTO> UpdateProducts(ProductDTO productDTO, int id)
         {
             var product = _context.Products.Include(t => t.ProductParameters)
-                                         .Where(t => t.Id == id)
-                                         .FirstOrDefault();
+                                           .Where(t => t.Id == id)
+                                           .FirstOrDefault();
 
-           // product.Id = productDTO.ProductId;
             product.PrimeCostEUR = productDTO.PrimeCostEUR;
             product.ProductTypeId = productDTO.ProductTypeId;
             product.Number = productDTO.Number;
             product.Amount = productDTO.Amount;
             product.PrimeCostEUR = productDTO.PrimeCostEUR;
+            product.Manufacturer = productDTO.Manufacturer;
 
             foreach (var paramDTO in productDTO.Parameters)
             {
@@ -195,6 +208,91 @@ namespace GdmStore.Services
             return productDTO;
 
      }
+
+    public async Task<Product> DeleteProducts(int id)
+    {
+            var product = _context.Products
+                   .Include(p => p.ProductType)
+                   .Include(pp => pp.ProductParameters)
+                   .Where(i => i.Id == id).FirstOrDefault();
+         //var pp = _context.Products.Include(t => t.ProductParameters).FirstOrDefault();
+            
+         //_context.Products.Remove(pp);
+         _context.Products.Remove(product);
+         await _context.SaveChangesAsync();
+
+         return product;
+    }
+
+        public async Task<IEnumerable<ProductDTO>> SortProducs(int id)
+        {
+            var products = await _context.Products
+              .Include(p => p.ProductParameters)
+              .Where(prod => prod.ProductTypeId == id)
+              .OrderBy(v => v.ProductParameters.Where(g => g.ParameterId == 4)
+                   .OrderBy(t => Convert.ToInt32(t.Value)).FirstOrDefault().Value)
+              .Select(prod => new ProductDTO
+              {
+                  ProductId = prod.Id,
+                  Number = prod.Number,
+                  Amount = prod.Amount,
+                  PrimeCostEUR = prod.PrimeCostEUR,
+                  ProductTypeId = prod.ProductTypeId,
+                  Manufacturer = prod.Manufacturer,
+                  Parameters = prod.ProductParameters
+                    .Select(par => new ParameterDTO
+                    {
+                        Id = par.Id,
+                        ParameterId = par.ParameterId,
+                        Value = par.Value,
+                        Name = par.Parameter.Name
+                    })
+                    .ToList()
+              })
+              .ToListAsync();
+
+
+            return products;
+        }
+
+        public async Task<IEnumerable<ProductDTO>> GetProductParam(int id)
+        {
+            var products = await _context.Products
+              .Include(p => p.ProductParameters)
+              .Where(prod => prod.Id == id)
+              .Select(prod => new ProductDTO
+              {
+                  ProductId = prod.Id,
+                  Number = prod.Number,
+                  Amount = prod.Amount,
+                  PrimeCostEUR = prod.PrimeCostEUR,
+                  ProductTypeId = prod.ProductTypeId,
+                  Manufacturer = prod.Manufacturer,
+                  Parameters = prod.ProductParameters
+                    .Select(par => new ParameterDTO
+                    {
+                        Id = par.Id,
+                        ParameterId = par.ParameterId,
+                        Value = par.Value,
+                        Name = par.Parameter.Name
+                    })
+
+                    .ToList()
+              })
+
+              .ToListAsync();
+
+
+            return products;
+        }
+
+        //public double GetSumAll(int id)
+        //{
+        //    return _context.Products
+        //        .Include(p => p.ProductParameters)
+        //       // .Where(a => a.ProductParameters.Where(f => f.Value == "63"))
+        //        .Sum(a => a.Amount);
+        //}
 
 
         //var EntryProduct = _context.Products.Find(ProductDTO.ProductId);

@@ -29,6 +29,8 @@
 
   <ItemGroup>
     <Content Remove="wwwroot\index.html" />
+    <Content Remove="wwwroot\lib\pages\orders.html" />
+    <Content Remove="wwwroot\lib\pages\updatePage.html" />
   </ItemGroup>
 
   <ItemGroup>
@@ -40,6 +42,8 @@
 
   <ItemGroup>
     <None Include="wwwroot\index.html" />
+    <None Include="wwwroot\lib\pages\orders.html" />
+    <None Include="wwwroot\lib\pages\updatePage.html" />
   </ItemGroup>
 
   <ItemGroup>

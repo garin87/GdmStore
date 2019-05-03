@@ -17,3 +17,28 @@
 .type {
     padding-bottom: 5px;
 }
+
+.btn-add {
+   padding-top: 2.5%;
+}
+
+.list-types{
+    display: flex;
+    flex-direction: row;
+}
+
+.list-diameters {
+    display: flex;
+    flex-direction: row;
+}
+
+.list-params {
+    display: flex;
+    flex-direction: row;
+
+}
+
+.list-params div{
+
+    border-top: 1px solid black;
+}

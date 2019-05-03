@@ -16,8 +16,6 @@ namespace GdmStore
         public static void Main(string[] args)
         {
             CreateWebHostBuilder(args).Build().Run();
-           // var dataContext = Models.DataContext();
-          //  DbInitializer.Initialize(dataContext);
         }
 
         public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>

@@ -27,7 +27,7 @@ namespace GdmStore.Models
                .HasOne(c => c.ProductType)
                .WithMany(e => e.Products)
                .HasForeignKey(c => c.ProductTypeId)
-               .OnDelete(DeleteBehavior.Restrict);
+               .OnDelete(DeleteBehavior.Cascade);
 
             modelBuilder.Entity<Parameter>()
                .HasOne(Pr => Pr.ProductType)
@@ -39,13 +39,13 @@ namespace GdmStore.Models
                 .HasOne(bc => bc.Product)
                 .WithMany(b => b.ProductParameters)
                  .HasForeignKey("ProductId")
-                .OnDelete(DeleteBehavior.Restrict);
+                .OnDelete(DeleteBehavior.Cascade);
 
             modelBuilder.Entity<ProductParameter>()
                 .HasOne(bc => bc.Parameter)
                 .WithMany(c => c.ProductParameters)
                 .HasForeignKey("ParameterId")
-                .OnDelete(DeleteBehavior.Restrict);
+                .OnDelete(DeleteBehavior.Cascade);
       
             base.OnModelCreating(modelBuilder);
         }

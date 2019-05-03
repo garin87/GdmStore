@@ -47,8 +47,9 @@ namespace GdmStore
             app.UseMvc();
             app.UseDeveloperExceptionPage();
             app.UseStatusCodePages();
-            app.UseStaticFiles();
             app.UseDefaultFiles();
+            app.UseStaticFiles();
+            
             app.UseMvcWithDefaultRoute();
         }
     }

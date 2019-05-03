@@ -39,7 +39,11 @@ namespace GdmStore.Services
 
         public async Task<Parameter> DeleteParameter(long id)
         {
-            var parameter = await _context.Parameters.FindAsync(id);
+            //var parameter = await _context.Parameters.FindAsync(id);
+            Parameter parameter = _context.Parameters
+              .Where(o => o.Id == id)
+              .FirstOrDefault();
+
             _context.Parameters.Remove(parameter);
             await _context.SaveChangesAsync();
 
@@ -50,11 +54,11 @@ namespace GdmStore.Services
         {
             Parameter p = await GetParameter(parameter.Id);
             p.Name = parameter.Name;
-           // p.Description = parameter.Description;
-          //  p.SteelGrade = parameter.SteelGrade;
-          //  p.TypeTube = parameter.TypeTube;
-          //  p.ProductTypeId = parameter.ProductTypeId;
-          //  p.Diameter = parameter.Diameter;
+            //p.Description = parameter.Description;
+            //p.SteelGrade = parameter.SteelGrade;
+            //p.TypeTube = parameter.TypeTube;
+            //p.ProductTypeId = parameter.ProductTypeId;
+            //p.Diameter = parameter.Diameter;
             await _context.SaveChangesAsync();
             return parameter;
         }
