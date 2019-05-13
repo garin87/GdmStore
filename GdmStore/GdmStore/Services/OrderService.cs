@@ -41,6 +41,14 @@ namespace GdmStore.Services
               .Where(o => o.Id == id)
               .FirstOrDefault();
 
+            var product = _context.OrderProducts
+                                  .Include(k => k.Product)
+                                  .Where(f => f.OrderId == id).Select(dd => dd.Product).FirstOrDefault();
+            if (product != null)
+            {
+                await UpdateOrderAmount(id);
+            }
+
             _context.Orders.Remove(order);
             await _context.SaveChangesAsync();
             return order;
@@ -104,16 +112,39 @@ namespace GdmStore.Services
 
         public async Task<Order> DeleteOrders(int id)
         {
-            var order = _context.Orders
+            var order =  _context.Orders
                    .Include(p => p.OrderProduct)
                    .Where(i => i.Id == id)
                    .FirstOrDefault();
 
-            _context.Orders.Remove(order);
             await _context.SaveChangesAsync();
-
             return order;
         }
+
+        public async Task<Product> UpdateOrderAmount(int id)
+        {
+            Product pr = _context.OrderProducts
+                                  .Include(aa => aa.Product)
+                                  .Where(k => k.OrderId == id).Select(dd => dd.Product).FirstOrDefault();
+
+            var valueAmount = _context.OrderProducts
+                            .Include(op => op.Product)
+                            .Include(prod => prod.Order)
+                            .Where(i => i.Order.Id == id)
+                            .FirstOrDefault().Product.Amount;
+
+            var valueOPAmount = _context.OrderProducts
+                             .Include(op => op.Product)
+                             .Include(prod => prod.Order)
+                             .Where(i => i.Order.Id == id)
+                             .FirstOrDefault().Amount;
+
+            pr.Amount = valueAmount + valueOPAmount;
+            await _context.SaveChangesAsync();
+
+            return pr;
+        }
+
 
         public async Task<IEnumerable<Order>> GetOrders()
         {
