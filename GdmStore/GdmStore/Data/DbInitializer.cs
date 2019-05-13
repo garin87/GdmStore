@@ -77,6 +77,29 @@ namespace GdmStore.Data
             }
             context.SaveChanges();
 
+            var orders = new Order[]
+            {
+               new Order {  NameCompany="АвиГидро", Price = 56.43, DateTime = new DateTime()},
+               new Order {  NameCompany="ТехСервис", Price = 116.43, DateTime = new DateTime()}
+            };
+
+            foreach (Order e in orders)
+            {
+                context.Orders.Add(e);
+            }
+            context.SaveChanges();
+
+            var orderProducts = new OrderProduct[]
+           {
+              new OrderProduct {  OrderId = 1, ProductId=3014, Amount = 1.2 },
+              new OrderProduct {  OrderId = 2, ProductId=3056, Amount = 0.745}
+          };
+
+            foreach (OrderProduct e in orderProducts)
+            {
+                context.OrderProducts.Add(e);
+            }
+            context.SaveChanges();
         }
     }
 }

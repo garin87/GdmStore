@@ -142,7 +142,7 @@ namespace GdmStore
             return _productParameterService.GetProductDiameters(id, param, paramId);
         }
 
-
+        //api/ProductParameters/1?param=Стандарт&paramId=2&paramDiameterId=4&diameter=20
         [HttpGet]
         [Route("GetProductByDiameter/{typeId}")]
         public Task<IEnumerable<ProductDTO>> GetProductDiameters(int typeId, string param, int paramId, int paramDiameterId, string diameter)
@@ -170,6 +170,14 @@ namespace GdmStore
         public async Task<double> GetSumTubes(int value)
         {
             return await _productParameterService.GetSumTubes(value);
+        }
+
+        // api/ProductParameters/GetSumAmountByParam/1?param=Стандарт&paramId=2&paramDiameterId=4&diameter=20
+        [HttpGet]
+        [Route("GetSumAmountByParam/{typeId}")]
+        public double GetSumAmountByParam(int typeId, string param, int paramId, int paramDiameterId, string diameter)
+        {
+            return _productParameterService.GetSumAmountByParam(typeId, param, paramId, paramDiameterId, diameter);
         }
 
     }

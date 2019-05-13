@@ -7,44 +7,90 @@
     <link rel="stylesheet" href="../bootstrap/dist/css/bootstrap.min.css" />
 </head>
 <body>
-    <h3 class="p-2 bg-primary text-white text-center">Обновить продукт</h3>
-    <div class="container-fluid represent-product">
-        <div class="row">
-            <form id="updateProduct" method="put">
+    <div class="container-fluid wrapper-orders-content">
+        <h3 class="p-2 bg-primary text-white text-center">Заказы</h3>
+        <div class="row wrapper-currency-content">
+            <div class="col currency-content">
+                <p>ПО КУРСУ НБРБ: <span id="currencyContent"></span></p>
+                <p>1 Доллар США: <span id="valueUSD"></span></p>  
+                <p>1 Eвро: <span id="valueEUR"></span></p>
+            </div>
+        </div>
+        <div class="row order-save-form">
+            <form id="orderSave" method="post">
                 <div class="row p-2">
-                    <div class="col" > 
+                    <div class="col-1">
                         <label>Id</label>
-                        <input name="id" class="form-control" id="productID" disabled/>
+                        <input name="id" class="form-control" id="orderID" disabled />
                     </div>
                     <div class="col">
-                        <label>ProductId</label>
-                        <input name="Number" class="form-control" id="numberUpdate" />
+                        <label>Номер</label>
+                        <input name="Number" class="form-control" id="numberProduct" disabled />
+                    </div>
+                    <div class="col">
+                        <label>Цена 1m. BLR</label>
+                        <input name="priceProduct" class="form-control" id="priceProductBLR" disabled />
                     </div>
                     <div class="col">
                         <label>Имя компания</label>
-                        <input name="Diameter" class="form-control" id="diameterUpdate" />
+                        <input name="nameCompany" class="form-control" id="nameCompany" />
                     </div>
                     <div class="col">
                         <label>Количестов</label>
-                        <input name="manufacturer" class="form-control" id="manufacturerUpdate" />
-                    </div>
-                    <div class="col">
-                        <label>Время</label>
-                        <input name="Type" class="form-control" id="typeUpdate" />
+                        <input name="amount" class="form-control" id="amountProduct" />
                     </div>
                     <div class="col">
                         <label>Цена</label>
-                        <input name="parameters[]" class="form-control" id="gradeSteelUpdate" />
+                        <input name="price" class="form-control" id="priceProduct" />
+                    </div>
+                    <div class="col-1">
+                        <label>Цена10%</label>
+                        <input name="amount10" class="form-control" id="price10" value="" disabled />
+                    </div>
+                    <div class="col-1">
+                        <label>Цена15%</label>
+                        <input name="amount15" class="form-control" id="price15" value="" disabled />
+                    </div>
+                    <div class="col-1">
+                        <label>Цена20%</label>
+                        <input name="amount20" class="form-control" id="price20" value="" disabled />
                     </div>
                     <div class="col justify-content-center btn-add">
-                        <button type="submit" class="btn btn-primary  button-add" id="saveUpdate">Сохранить</button>
+                        <button type="submit" class="btn btn-primary  button-add" id="saveOrder">Сохранить</button>
                     </div>
                 </div>
             </form>
         </div>
+        <div class="row list-orders-caption" id="OrderButtons">
+            <div class="row align-items-center list-button">
+                <div class="col-3">
+                    <button id="showOrders">Показать все заказы</button>
+                </div>
+                <div class="col-3">
+                    <label>Поиск заказов по компании </label>
+                    <input name="nameCompany" class="form-control" id="nameCompanyOrder" value=""/>
+                </div>
+                <div class="col-1"><button id="searchOrders">Искать</button> </div>
+            </div>
+           
+        </div>
+        <div class="row list-orders-caption" id="listOrdersContent">
+            <div class="row text-center list-orders" id="listOrders">
+                <div class="col">OrderId</div>
+                <div class="col">Производитель</div>
+                <div class="col">Имя компании</div>
+                <div class="col">Номер</div>
+                <div class="col">Количество</div>
+                <div class="col">ЦенаBLR</div>
+                <div class="col">Время</div>
+                <div class="col">Время</div>
+                <div class="col">Время</div>
+            </div>
+        </div>
     </div>
     
-    <script type="module" src="../js/updatePage.js"></script>
+    
+    <script type="module" src="../js/orederPage.js"></script>
     <script type="module" src="../js/getOptions.js"></script>
 </body>
 </html>

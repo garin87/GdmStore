@@ -10,6 +10,6 @@ export function getOptions(url) {
         .catch(function (error) {
             console.log(error);
         });
+
     return result;
 }
-

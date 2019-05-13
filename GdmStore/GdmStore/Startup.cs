@@ -29,7 +29,12 @@ namespace GdmStore
         }*/
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddMvc();
+            services.AddMvc()
+                    .AddJsonOptions(options =>
+                    {
+                      options.SerializerSettings.DateFormatString = "dd.MM.yyyy HH:mm";
+                    });
+
             string conString = Configuration["ConnectionStrings:DefaultConnection"];
             services.AddDbContext<DataContext>(options =>
                 options.UseSqlServer(conString));
@@ -51,6 +56,8 @@ namespace GdmStore
             app.UseStaticFiles();
             
             app.UseMvcWithDefaultRoute();
+
+
         }
     }
 }

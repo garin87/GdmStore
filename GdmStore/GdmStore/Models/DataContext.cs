@@ -20,6 +20,8 @@ namespace GdmStore.Models
         public DbSet<ProductType> ProductTypes { get; set; }
         public DbSet<Parameter> Parameters { get; set; }
         public DbSet<ProductParameter> ProductParameters { get; set; }
+        public DbSet<Order> Orders { get; set; }
+        public DbSet<OrderProduct> OrderProducts { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -44,9 +46,22 @@ namespace GdmStore.Models
             modelBuilder.Entity<ProductParameter>()
                 .HasOne(bc => bc.Parameter)
                 .WithMany(c => c.ProductParameters)
-                .HasForeignKey("ParameterId")
+                 .HasForeignKey("ParameterId")
                 .OnDelete(DeleteBehavior.Cascade);
-      
+
+            modelBuilder.Entity<OrderProduct>()
+              .HasOne(bc => bc.Order)
+              .WithMany(b => b.OrderProduct)
+               .HasForeignKey("OrderId")
+              .OnDelete(DeleteBehavior.Cascade);
+
+            modelBuilder.Entity<OrderProduct>()
+               .HasOne(bc => bc.Product)
+               .WithMany(c => c.OrderProduct)
+                .HasForeignKey("ProductId")
+               .OnDelete(DeleteBehavior.Cascade);
+
+
             base.OnModelCreating(modelBuilder);
         }
         

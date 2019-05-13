@@ -19,8 +19,6 @@ const uriDiametersH8 = 'api/ProductParameters/GetProductByDiameter/2?param=H8&pa
 //get products with type "H9" by diameter
 const uriDiametersH9 = 'api/ProductParameters/GetProductByDiameter/2?param=H9&paramId=1&paramDiameterId=1003&diameter=';
 
-
-
 viewProducts(uriProduct)
 
  function viewProducts(uriProduct) {
@@ -102,6 +100,7 @@ function ViewDiameterTypeTube(uriDiameter) {
             }
         });
 }
+
 function ViewDiameterTypeTube2(uriDiameter) {
     getOptions(uriDiameter)
         .then(function (json) {
@@ -143,6 +142,7 @@ function ViewParams(uriParams) {
             }
         });
 }
+
 function ViewParamsTube(uriParams) {
     getOptions(uriParams)
         .then(function (json) {
@@ -191,9 +191,11 @@ document.getElementById('list-diameters').addEventListener('click', function (ev
     else if (event.target == document.getElementById("DiamterType2Id" + tubeId)) {
         ViewParamsTube(uriDiametersH9 + tubeId); // do not forget to replace id
     }
+
     console.log(uriDiametersH9 + strId);
     console.log(id);
     console.log(tubeId);
+
 });
 
 //sort diameters
@@ -231,10 +233,6 @@ function formatProducts(item, i) {
     
     document.getElementById("list-products").appendChild(div);
    
-
-    //li.innerHTML = " 'ProductId ('" + item[i].ProductId + "') '" + item[i].Name + " "
-    //    + item[i].Number + " " + item[i].Amount + " " + item[i].PrimeCostEUR;
-    //document.getElementById("list-group-item").appendChild(li);
 }
 
 function formatRodType(item, i) {
@@ -335,16 +333,15 @@ function formatDiameterProducts(item, i) {
     row.innerHTML = '<div class="col ">' + item[i].productId + '</div>' +
         '<div class="col">' +  item[i].nameType + '</div>' +
         '<div class="col">' + item[i].number + '</div>' +
-       
         '<div class="col">' + item[i].manufacturer + '</div>' +
         '<div class="col">' + item[i].parameters[0].value + '</div>' +
         '<div class="col">' + item[i].parameters[1].value + '</div>' +
         '<div class="col">' + item[i].parameters[2].value + '</div>' +
         '<div class="col">' + item[i].primeCostEUR + '</div>' +
         '<div class="col">' + item[i].amount + '</div>' + 
-        '<button type="submit" class="btn btn-outline-primary" id="Edit' + item[i].productId + '">' + 'Изменить' + '</button>' +
-        '<button type="submit" class="btn btn-outline-danger" id="Remove' + item[i].productId + '">' + 'Удал' + '</button>' +
-        '<button type="submit" class="btn btn-outline-primary " id="Order' + item[i].productId + '">' +  'Заказ' + '</button>'
+        '<button type="submit" data-button-type="Edit" class="btn btn-outline-primary" id="Edit' + item[i].productId + '">' + 'Изменить' + '</button>' +
+        '<button type="submit" data-button-type="Remove" class="btn btn-outline-danger" id="Remove' + item[i].productId + '">' + 'Удал' + '</button>' +
+        '<button type="submit" data-button-type="Order" class="btn btn-outline-primary " id="Order' + item[i].productId + '">' +  'Заказ' + '</button>'
  
    // console.log(item[i].parameters[1].value);
     document.getElementById("list-param-products").appendChild(row);
@@ -366,9 +363,9 @@ function formatDiameterTube(item, i) {
         '<div class="col">' + item[i].parameters[1].value + '</div>' +
         '<div class="col">' + item[i].primeCostEUR + '</div>' +
         '<div class="col">' + item[i].amount + '</div>' +
-        '<button type="submit" class="btn btn-outline-primary" id="Edit' + item[i].productId + '">' + 'Изменить' + '</button>' +
-        '<button type="submit" class="btn btn-outline-danger" id="Remove' + item[i].productId + '">' + 'Удал' + '</button>' +
-        '<button type="submit" class="btn btn-outline-primary " id="Order' + item[i].productId + '">' + 'Заказ' + '</button>'
+        '<button type="submit" data-button-type="Edit" class="btn btn-outline-primary" id="Edit' + item[i].productId + '">' + 'Изменить' + '</button>' +
+        '<button type="submit" data-button-type="Remove" class="btn btn-outline-danger" id="Remove' + item[i].productId + '">' + 'Удал' + '</button>' +
+        '<button type="submit" data-button-type="Order" class="btn btn-outline-primary " id="Order' + item[i].productId + '">' + 'Заказ' + '</button>'
 
     // console.log(item[i].parameters[1].value);
     document.getElementById("list-param-products").appendChild(row);
@@ -461,74 +458,37 @@ document.getElementById('list-param-products').addEventListener('click', functio
 
 });
 // update parameters product
-document.getElementById('list-param-products').addEventListener('click', function (evant) {
+document.getElementById('list-param-products').addEventListener('click', function (event) {
+    let id = event.target.id;
+    if (document.getElementById(id).getAttribute("data-button-type") == "Edit") {
+        let ProductId = id.substr(4);
+        let uriType = "api/Products/GetProductParam/" + ProductId;
+        redirectToUpdate(uriType);
+    }
 
-    const target = event.target;
-    let id = evant.target.id;
-    let NameId = id.substr(0, 4);
-    let ProductId = id.substr(4);
-    console.log(ProductId);
-
-    var uriType = "api/Products/GetProductParam/" + ProductId;
-
-    if (NameId == "Edit") {
-     //   ViewValueProduct(uriType);
-        redirectToUpdate();
-    } 
-
-    function redirectToUpdate() {
+    function redirectToUpdate(uriType) {
         document.location.href = 'http://localhost:5000/lib/pages/updatePage.html?' + uriType
     }
 
 });
 
+// order parameters product
+document.getElementById('list-param-products').addEventListener('click', function (event) {
 
+    let id = event.target.id;
 
-function createTable(json) {
-    let tableElem, tr, td;
-
-    tableElem = document.createElement('table');
-    tableElem.style.border = "1px solid black";
-    tableElem.style.borderCollapse = "collapse";
-
-    var namesField = Object.getOwnPropertyNames(json[0]);
-    //  console.log(namesField);
-    tableElem = document.createElement('table');
-
-    for (let i = 0; i < json.length; i++) {
-        tr = document.createElement('tr');
-        tr.style.border = "1px solid black";
-
-        for (let j = 0; j < Object.keys(json[0]).length; j++) {
-
-            td = document.createElement('td');
-            td.style.border = "1px solid black";
-            td.style.padding = "5px";
-
-            if (i === 0) {
-                td.appendChild(document.createTextNode(namesField[j]));
-            }
-
-            if (i > 0) {
-                td.appendChild(document.createTextNode(json[i][namesField[j]]));
-            }
-
-            tr.appendChild(td);
-        }
-
-        tableElem.appendChild(tr);
+    if (document.getElementById(id).getAttribute("data-button-type") == "Order") {
+        let ProductId = id.substr(5);
+        let uriType = "api/Products/GetProductParam/" + ProductId;
+        redirectToUpdate(uriType);
     }
 
-    document.body.appendChild(tableElem);
+    function redirectToUpdate(uriType) {
+        document.location.href = 'http://localhost:5000/lib/pages/orders.html?' + uriType
+    }
 
-}
+});
 
-function viewTable(uri) {
-    getOptions(uri)
-        .then(function (json) {
-            createTable(json);
-            //let temp = Object.keys(json[0]);
-        });
-}
+/////////////////////////////////////////////////////////////// js for order page
 
-//viewTable(uri);
+

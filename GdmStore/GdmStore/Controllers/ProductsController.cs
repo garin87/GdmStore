@@ -106,14 +106,6 @@ namespace GdmStore
         }
 
 
-        //GET: api/Products/TestProducts/1
-        [HttpGet]
-        [Route("TestProducts/{id}")]
-        public async Task<IList<Product>> TestProducts(int id)
-        {
-            return await _productService.TestProducts(id);
-        }
-
         //GET: api/Products/GetProducts/1
         [HttpGet]
         [Route("GetProducts/{id}")]
@@ -151,6 +143,13 @@ namespace GdmStore
             return await _productService.SortProducs(id);
         }
 
+        //[HttpGet]
+        //[Route("SortProducsByParameters/{id}")]
+        //public async Task<IEnumerable<ProductDTO>> SortProducsByParameters([FromRoute] int id,[FromQuery] bool StateOrder)
+        //{
+        //    return await _productService.SortProducsByParameters(id, StateOrder);
+        //}
+
         [HttpGet]
         [Route("GetProductParam/{id}")]
         public async Task<IEnumerable<ProductDTO>> GetProductParam([FromRoute] int id)
@@ -158,13 +157,14 @@ namespace GdmStore
             return await _productService.GetProductParam(id);
         }
 
+        [HttpGet]
+        [Route("GetParamForOrder/{id}")]
+        public async Task<IEnumerable<ProductOrderDTO>> GetParamForOrder([FromRoute] int id)
+        {
+            return await _productService.GetParamForOrder(id);
+        }
 
-        //[HttpGet]
-        //[Route("SumProducts/{id}")]
-        //public double SumProducts([FromRoute] int id)
-        //{
-        //    return _productService.GetSumAll(id);
-        //}
+ 
 
         //[HttpGet]
         //[Route("SortProduct/{id}")]
@@ -174,20 +174,7 @@ namespace GdmStore
         //}
 
 
-        /*
-        [HttpPost]
-        public async Task<IActionResult> AddProducts(Product product..)
-        {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-
-            var productNew = await _productService.AddProducts(product);
-
-            return Ok(productNew);
-        }
-        */
+    
         //private bool ProductExists(long id) => _context.Products.Any(e => e.ProductId == id);
 
     }

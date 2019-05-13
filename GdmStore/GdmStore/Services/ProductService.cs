@@ -61,15 +61,6 @@ namespace GdmStore.Services
             return  product;
         }
 
-        public async Task<IList<Product>> TestProducts(int id)
-        {
-
-            return await _context.Products.Include(p => p.ProductType)
-                                .Where(p => p.ProductTypeId == id)
-                              
-                             .ToListAsync();
-        }
-
         public async Task<IEnumerable<ProductDTO>> GetProducts(int id)
         {
             var typeParams = await _context.Parameters.Where(t => t.ProductTypeId == id)
@@ -78,7 +69,6 @@ namespace GdmStore.Services
             var products = await _context.Products.Include(t => t.ProductParameters)
                                          .Include(h => h.ProductType)   
                                          .Where(t => t.ProductTypeId == id)
-                                         
                                          .ToListAsync();
 
             var items = new List<ProductDTO>();
@@ -230,7 +220,7 @@ namespace GdmStore.Services
               .Include(p => p.ProductParameters)
               .Where(prod => prod.ProductTypeId == id)
               .OrderBy(v => v.ProductParameters.Where(g => g.ParameterId == 4)
-                   .OrderBy(t => Convert.ToInt32(t.Value)).FirstOrDefault().Value)
+                   .OrderBy(t => t.Value).FirstOrDefault().Value)
               .Select(prod => new ProductDTO
               {
                   ProductId = prod.Id,
@@ -254,6 +244,71 @@ namespace GdmStore.Services
 
             return products;
         }
+          
+        //public async Task<IQueryable<ProductDTO>> SortProducsByParameters(int TypeId, bool StateOrder = true)
+        //{
+        //    string param = "Стандарт";
+        //    int paramId = 2; // тип штока 
+        //    int paramDiameterId = 4;
+        //    string diameter = "60";
+
+        //    var products = await _context.Products
+        //                                 .Include(p => p.ProductParameters)
+        //                                 .Include(par => par.ProductType.Parameters)
+        //                                 .Where(prod => prod.ProductTypeId == TypeId)                           
+        //       .Where(pp1 => pp1.ProductParameters.Where(r => r.Value == param && r.ParameterId == paramId))
+        //       .Join(_context.ProductParameters.Where(pp => pp.ParameterId == paramDiameterId && pp.Value == diameter),
+        //                        pp1 => pp1.Id,
+        //                        pp => pp.Id,
+        //                        (pp1, pp) => new Product()).ToListAsync();
+
+        //    if (StateOrder == true)
+        //    {
+        //        products = products.OrderBy(v => v.ProductParameters.Where(g => g.ParameterId == paramDiameterId)
+        //           .OrderBy(t => t.Value).FirstOrDefault().Value).ToList();
+        //    }
+        //    else
+        //    {
+        //        products = products.OrderByDescending(v => v.ProductParameters.Where(g => g.ParameterId == paramDiameterId)
+        //        .OrderByDescending(t => t.Value).FirstOrDefault().Value).ToList();
+        //    }
+
+        //    var items = new List<ProductDTO>();
+
+        //    foreach (var product in products)
+        //    {
+        //        var productDTO = new ProductDTO()
+        //        {
+        //            ProductId = product.Id,
+        //            Number = product.Number,
+        //            Manufacturer = product.Manufacturer,
+        //            Amount = product.Amount,
+        //            PrimeCostEUR = product.PrimeCostEUR,
+        //            ProductTypeId = product.ProductTypeId,
+        //            NameType = product.ProductType.NameType
+        //        };
+
+        //        foreach (var typeParam in product.ProductParameters)
+        //        {
+        //            var paramDTO = new ParameterDTO();
+        //            var value = product.ProductParameters.FirstOrDefault(t => t.ParameterId == typeParam.Id);
+        //            if (value != null)
+        //            {
+        //                paramDTO.Id = value.Id;
+        //                paramDTO.Value = value.Value;
+        //            }
+        //            paramDTO.Id = typeParam.Id;
+        //            paramDTO.Name = typeParam.Parameter.Name;
+        //            paramDTO.ParameterId = typeParam.ParameterId;
+        //            paramDTO.Value = typeParam.Value;
+
+        //            productDTO.Parameters.Add(paramDTO);
+        //        }
+
+        //         items.Add(productDTO);
+        //    }
+        //    return items.AsQueryable();
+        //}
 
         public async Task<IEnumerable<ProductDTO>> GetProductParam(int id)
         {
@@ -286,13 +341,20 @@ namespace GdmStore.Services
             return products;
         }
 
-        //public double GetSumAll(int id)
-        //{
-        //    return _context.Products
-        //        .Include(p => p.ProductParameters)
-        //       // .Where(a => a.ProductParameters.Where(f => f.Value == "63"))
-        //        .Sum(a => a.Amount);
-        //}
+        public async Task<IEnumerable<ProductOrderDTO>> GetParamForOrder(int id)
+        {
+            var param = await _context.Products
+                                      .Where(p => p.Id == id)
+                                      .Select(m => new ProductOrderDTO
+                                      {
+                                          Number = m.Number,
+                                          PrimeCostEUR = m.PrimeCostEUR
+                                      }).ToListAsync();
+
+            return param;
+
+        }
+
 
 
         //var EntryProduct = _context.Products.Find(ProductDTO.ProductId);
@@ -327,22 +389,6 @@ namespace GdmStore.Services
 
         //}
 
-        //return ProductDTO;
-        //var items = await _context.Products
-        //                 .SelectMany(p => p.ProductParameters)
-        //                 .Select(pp => new ProductDTO
-        //                 {
-        //                     ProductId = pp.ProductId,
-        //                     Number = pp.Product.Number,
-        //                     Amount = pp.Product.Amount,
-        //                     PrimeCostEUR = pp.Product.PrimeCostEUR,
-        //                     NameType = pp.Product.ProductType.NameType,
-        //                     ProductTypeId = pp.Product.ProductTypeId,
-        //                     Name = pp.Parameter.Name,
-        //                     Value = pp.Value
-        //                 })
-        //                .Where(pp => pp.ProductTypeId == id)
-        //                .ToListAsync();
-        //return items;
+
     }
 }

@@ -22,6 +22,6 @@ namespace GdmStore.Models
 
 
         public ICollection<ProductParameter> ProductParameters { get; set; } = new List<ProductParameter>();
-        //public ICollection<OrderProduct> OrderProduct { get; set; } = new List<OrderProduct>();
+        public ICollection<OrderProduct> OrderProduct { get; set; } = new List<OrderProduct>();
     }
 }

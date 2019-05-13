@@ -76,8 +76,6 @@ namespace GdmStore.Services
             return products;
         }
 
-
-
         public async Task<IEnumerable<ProductParameter>> GetSortProductParameters(long id)
         {
             var value = await _context.ProductParameters.Include(y => y.Parameter)
@@ -109,6 +107,25 @@ namespace GdmStore.Services
                 .Where(f => f.Value == value.ToString())
                 .SumAsync(a => a.Product.Amount);
         }
+
+        public double GetSumAmountByParam(int typeId, string param, int paramId, int paramDiameterId, string diameter)
+        {
+            var sumAmount =   _context.ProductParameters
+                        .Include(p => p.Product)
+                        .Where(prod => prod.Product.ProductTypeId == typeId)
+                        .Where(pp1 => pp1.Value == param && pp1.ParameterId == paramId)
+                        .Join(_context.ProductParameters.Where(pp => pp.ParameterId == paramDiameterId && pp.Value == diameter),
+                                pp1 => pp1.Product.Id,
+                                pp => pp.Product.Id,
+                               (pp1, pp) => new ProductParameter
+                               {
+                                   Product = pp1.Product
+                               }).Sum(a => a.Product.Amount);
+
+            return Math.Round(sumAmount, 2);
+        }
+
+
     }
 }
 

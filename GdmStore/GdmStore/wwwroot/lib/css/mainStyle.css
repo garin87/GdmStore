@@ -42,3 +42,33 @@
 
     border-top: 1px solid black;
 }
+
+/*///////////////////////////// style order page */
+
+.represent-orders{
+    width: 1300px;
+}
+.currency-content{
+    font-size: 16px;
+    display:flex;
+    font-weight:500;
+}
+.currency-content p{
+    margin: 0 10px 0 10px;
+}
+.list-orders-caption {
+    flex-direction: column;
+    width: 1300px;
+}
+
+.list-orders {
+   
+  
+}
+
+.list-button {
+    display: flex;
+    align-content: center;
+    justify-content: flex-start;
+    padding-left: 40px;
+}
