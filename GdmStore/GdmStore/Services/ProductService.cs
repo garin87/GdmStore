@@ -244,7 +244,7 @@ namespace GdmStore.Services
 
             return products;
         }
-          
+
         //public async Task<IQueryable<ProductDTO>> SortProducsByParameters(int TypeId, bool StateOrder = true)
         //{
         //    string param = "Стандарт";
@@ -255,7 +255,7 @@ namespace GdmStore.Services
         //    var products = await _context.Products
         //                                 .Include(p => p.ProductParameters)
         //                                 .Include(par => par.ProductType.Parameters)
-        //                                 .Where(prod => prod.ProductTypeId == TypeId)                           
+        //                                 .Where(prod => prod.ProductTypeId == TypeId)
         //       .Where(pp1 => pp1.ProductParameters.Where(r => r.Value == param && r.ParameterId == paramId))
         //       .Join(_context.ProductParameters.Where(pp => pp.ParameterId == paramDiameterId && pp.Value == diameter),
         //                        pp1 => pp1.Id,
@@ -305,7 +305,7 @@ namespace GdmStore.Services
         //            productDTO.Parameters.Add(paramDTO);
         //        }
 
-        //         items.Add(productDTO);
+        //        items.Add(productDTO);
         //    }
         //    return items.AsQueryable();
         //}

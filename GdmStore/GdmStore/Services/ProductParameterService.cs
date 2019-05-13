@@ -45,17 +45,18 @@ namespace GdmStore.Services
         }
 
         public async Task<IEnumerable<ProductDTO>> GetProductsByDiameter(int typeId, string param, int paramId, int paramDiameterId,  string diameter)
-        {           
-          var products = await _context.ProductParameters
-              .Include(p => p.Product)
-              .Where(prod => prod.Product.ProductTypeId == typeId)
-              .Where(pp1 => pp1.ParameterId == paramId && pp1.Value == param)
-              .Join(_context.ProductParameters.Where(pp => pp.ParameterId == paramDiameterId && pp.Value == diameter),
-                                pp1 => pp1.Product.Id,
-                                pp => pp.Product.Id,
-                                (pp1, pp) => new ProductDTO
-                                {
-                                    ProductId = pp.Id,
+        {
+            var products = await _context.ProductParameters
+                .Include(p => p.Product)
+                .Where(prod => prod.Product.ProductTypeId == typeId)
+                .Where(pp1 => pp1.ParameterId == paramId && pp1.Value == param)
+                .Join(_context.ProductParameters.Where(pp => pp.ParameterId == paramDiameterId && pp.Value == diameter),
+                                  pp1 => pp1.Product.Id,
+                                  pp => pp.Product.Id,
+                                  (pp1, pp) => new ProductDTO
+                                  {
+                                    ProductId = pp.Product.Id,
+                                    NameType = pp.Product.ProductType.NameType,
                                     Number = pp.Product.Number,
                                     Amount = pp.Product.Amount,
                                     PrimeCostEUR = pp.Product.PrimeCostEUR,
