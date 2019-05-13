@@ -225,6 +225,7 @@ namespace GdmStore.Services
               {
                   ProductId = prod.Id,
                   Number = prod.Number,
+                  NameType = prod.ProductType.NameType,
                   Amount = prod.Amount,
                   PrimeCostEUR = prod.PrimeCostEUR,
                   ProductTypeId = prod.ProductTypeId,

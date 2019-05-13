@@ -39,9 +39,6 @@ function ValueOrder(item, i, valueBLR) {
 }
 
 
-
-//getDubleOptions();
-
 function viewPriceBLR() {
     getDubleOptions().then(function (json) {
         console.log(json);
@@ -105,16 +102,34 @@ document.getElementById('showOrders').addEventListener('click', function (ev) {
 function formatOptionOrder(item, i) {
     let row = document.createElement('div');
     let col = document.createElement('div');
+    let productOrders = null;
+    let orderProducts = null;
+    let number = null;
+    let amount = null;
+    let manufacturer = null;
+    let nameType = null;
+
+    if (item[i].productOrders[0] !== undefined) {
+        productOrders = item[i].productOrders[0];
+        number = productOrders.number;
+        manufacturer = productOrders.manufacturer;
+        nameType = productOrders.nameType;
+    }
+
+    if (item[i].orderProducts[0] !== undefined) {
+        orderProducts = item[i].orderProducts[0];
+        amount = orderProducts.amount;
+    }
 
     row.className = "row text-left list-params text-center";
     col.className = "col";
-    console.log(item[0].orderProducts["amount"]);
+    console.log(item[i].productOrders[i]);
     row.innerHTML = '<div class="col ">' + item[i].id + '</div>' +
-        '<div class="col">' + item[i].productOrders[0].nameType + '</div>' +
+        '<div class="col">' + nameType + '</div>' +
         '<div class="col">' + item[i].nameCompany + '</div>' +
-        '<div class="col">' + item[i].productOrders[0].number + '</div>' +
-        '<div class="col">' + (item[i].orderProducts[0].amount).toFixed(2) + '</div>' +
-        '<div class="col">' + item[i].productOrders[0].manufacturer + '</div>' +
+        '<div class="col">' + number + '</div>' +
+        '<div class="col">' + amount + '</div>' +
+        '<div class="col">' + manufacturer + '</div>' +
         '<div class="col">' + item[i].price + '</div>' +
         '<div class="col">' + item[i].dateTime + '</div>' +
         '<button type="submit" data-button-type="Edit" class="btn btn-outline-primary" id="Edit' + item[i].id + '">' + 'Изменить' + '</button>' +
