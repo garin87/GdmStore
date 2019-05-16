@@ -143,12 +143,12 @@ namespace GdmStore
             return await _productService.SortProducs(id);
         }
 
-        //[HttpGet]
-        //[Route("SortProducsByParameters/{id}")]
-        //public async Task<IEnumerable<ProductDTO>> SortProducsByParameters([FromRoute] int id,[FromQuery] bool StateOrder)
-        //{
-        //    return await _productService.SortProducsByParameters(id, StateOrder);
-        //}
+        [HttpGet]
+        [Route("SortProducsByParameters/{id}")]
+        public async Task<IEnumerable<ProductDTO>> SortProducsByParameters([FromRoute] int id, [FromQuery] bool StateOrder)
+        {
+            return await _productService.SortProducsByParameters(id, StateOrder);
+        }
 
         [HttpGet]
         [Route("GetProductParam/{id}")]

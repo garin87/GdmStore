@@ -22,15 +22,23 @@ namespace GdmStore.Models
         public DbSet<ProductParameter> ProductParameters { get; set; }
         public DbSet<Order> Orders { get; set; }
         public DbSet<OrderProduct> OrderProducts { get; set; }
+        public DbSet<User> Users { get; set; }
+        public DbSet<Role> Roles { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<User>()
+             .HasOne(c => c.Role)
+             .WithMany(e => e.User)
+             .HasForeignKey(c => c.RoleId)
+             .OnDelete(DeleteBehavior.Cascade);
+
             modelBuilder.Entity<Product>()
                .HasOne(c => c.ProductType)
                .WithMany(e => e.Products)
                .HasForeignKey(c => c.ProductTypeId)
                .OnDelete(DeleteBehavior.Cascade);
-
+           
             modelBuilder.Entity<Parameter>()
                .HasOne(Pr => Pr.ProductType)
                .WithMany(Pt => Pt.Parameters)

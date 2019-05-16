@@ -10,6 +10,7 @@ using GdmStore.Models;
 using GdmStore.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
+using Microsoft.AspNetCore.Authentication.Cookies;
 
 namespace GdmStore
 {
@@ -22,11 +23,7 @@ namespace GdmStore
 
         public IConfiguration Configuration { get; }
 
-        // This method gets called by the runtime. Use this method to add services to the container.
-       /* public void ConfigureServices(IServiceCollection services)
-        {
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
-        }*/
+
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc()
@@ -35,11 +32,18 @@ namespace GdmStore
                       options.SerializerSettings.DateFormatString = "dd.MM.yyyy HH:mm";
                     });
 
+            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+              .AddCookie(options =>
+              {
+                  options.LoginPath = new Microsoft.AspNetCore.Http.PathString("/Account/Login");
+                  options.AccessDeniedPath = new Microsoft.AspNetCore.Http.PathString("/Account/Login");
+              });
+
             string conString = Configuration["ConnectionStrings:DefaultConnection"];
             services.AddDbContext<DataContext>(options =>
                 options.UseSqlServer(conString));
         }
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
+
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, DataContext dataContext)
         {
             DbInitializer.Initialize(dataContext);
@@ -54,7 +58,9 @@ namespace GdmStore
             app.UseStatusCodePages();
             app.UseDefaultFiles();
             app.UseStaticFiles();
-            
+
+           app.UseAuthentication();
+
             app.UseMvcWithDefaultRoute();
 
 

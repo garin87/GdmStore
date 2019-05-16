@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using GdmStore.Models;
+using GdmStore.Services;
 using GdmStore.DTO;
 using Microsoft.EntityFrameworkCore;
 
@@ -11,6 +12,8 @@ namespace GdmStore.Services
     public class OrderProductService
     {
         private readonly DataContext _context;
+
+        private readonly OrderService _orderServise;
 
         public OrderProductService(DataContext context)
         {
@@ -56,6 +59,35 @@ namespace GdmStore.Services
 
             return orderProduct;
         }
+
+        public async Task<OrderProduct> UpdateOrderP(OrderDTO orderDTO)
+        {
+            OrderProduct op = await GetOrderProduct(orderDTO.OrderProductId);
+            Order o = _context.Orders.Find(orderDTO.OrderId);
+            Product product = _context.Products.Find(orderDTO.ProductId);
+            await _orderServise.DeleteOrder(o.Id);
+
+            op.Amount = orderDTO.Amount;
+            o.NameCompany = orderDTO.NameCompany;
+            o.Price = orderDTO.Price;
+
+           
+            if (product.Amount >= orderDTO.Amount)
+            {
+                var newAmout = product.Amount - orderDTO.Amount;
+                product.Amount = Math.Round(newAmout, 2);
+                await _context.SaveChangesAsync();
+            }
+            else
+            {
+                return null;
+            }
+
+
+            return op;
+        }
+
+
         public async Task<IEnumerable<OrderPDTO>> GetOrderByPruductId(int id)
         {
             var order = await _context.OrderProducts
@@ -88,6 +120,7 @@ namespace GdmStore.Services
             return order;
 
         }
+
 
     }
 }

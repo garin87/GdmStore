@@ -93,7 +93,7 @@ namespace GdmStore.Services
 
          
             Product product = _context.Products.Find(orderDTO.ProductId);
-            if(product.Amount > orderDTO.Amount)
+            if(product.Amount >= orderDTO.Amount)
             {
                 var newAmout = product.Amount - orderDTO.Amount;
                 product.Amount = Math.Round(newAmout, 2);
@@ -144,6 +144,7 @@ namespace GdmStore.Services
 
             return pr;
         }
+
 
 
         public async Task<IEnumerable<Order>> GetOrders()
