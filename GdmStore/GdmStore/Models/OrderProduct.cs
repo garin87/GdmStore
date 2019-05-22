@@ -6,9 +6,9 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace GdmStore.Models
 {
-    public class OrderProduct
+    public class OrderProduct : BaseObject
     {
-        public int Id { get; set; }
+        //public int Id { get; set; }
 
         [ForeignKey("ProductId")]
         public int ProductId { get; set; }

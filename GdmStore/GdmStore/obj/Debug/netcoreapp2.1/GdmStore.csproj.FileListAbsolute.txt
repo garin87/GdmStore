@@ -40,3 +40,15 @@ C:\Projects\GdmStore\GdmStore\obj\Debug\netcoreapp2.1\GdmStore.RazorTargetAssemb
 C:\Projects\GdmStore\GdmStore\obj\Debug\netcoreapp2.1\GdmStore.dll
 C:\Projects\GdmStore\GdmStore\obj\Debug\netcoreapp2.1\GdmStore.pdb
 C:\Projects\GdmStore\GdmStore\obj\Debug\netcoreapp2.1\GdmStore.csproj.CopyComplete
+C:\Projects\GdmStore\GdmStore\bin\Debug\netcoreapp2.1\GdmStore.Views.pdb
+C:\Projects\GdmStore\GdmStore\obj\Debug\netcoreapp2.1\GdmStore.TagHelpers.input.cache
+C:\Projects\GdmStore\GdmStore\obj\Debug\netcoreapp2.1\GdmStore.TagHelpers.output.cache
+C:\Projects\GdmStore\GdmStore\obj\Debug\netcoreapp2.1\GdmStore.RazorCoreGenerate.cache
+C:\Projects\GdmStore\GdmStore\obj\Debug\netcoreapp2.1\Razor\Views\Account\Login.g.cshtml.cs
+C:\Projects\GdmStore\GdmStore\obj\Debug\netcoreapp2.1\Razor\Views\Account\Register.g.cshtml.cs
+C:\Projects\GdmStore\GdmStore\obj\Debug\netcoreapp2.1\GdmStore.RazorTargetAssemblyInfo.cs
+C:\Projects\GdmStore\GdmStore\obj\Debug\netcoreapp2.1\GdmStore.Views.pdb
+C:\Projects\GdmStore\GdmStore\obj\Debug\netcoreapp2.1\Razor\Views\_ViewImports.g.cshtml.cs
+C:\Projects\GdmStore\GdmStore\obj\Debug\netcoreapp2.1\Razor\Views\_ViewStart.g.cshtml.cs
+C:\Projects\GdmStore\GdmStore\obj\Debug\netcoreapp2.1\Razor\Views\Shared\_Layout.g.cshtml.cs
+C:\Projects\GdmStore\GdmStore\obj\Debug\netcoreapp2.1\Razor\Views\Shared\_AdminLayout.g.cshtml.cs

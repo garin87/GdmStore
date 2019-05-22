@@ -6,51 +6,52 @@ using GdmStore.Models;
 using GdmStore.Services;
 using GdmStore.DTO;
 using Microsoft.EntityFrameworkCore;
+using GdmStore.Services.Interfaces;
 
 namespace GdmStore.Services
 {
-    public class OrderProductService
+    public class OrderProductService : BaseService<OrderProduct>, IOrderProductService
     {
         private readonly DataContext _context;
 
         private readonly OrderService _orderServise;
 
-        public OrderProductService(DataContext context)
+        public OrderProductService(DataContext context) : base(context)
         {
             _context = context;
         }
 
-        public IEnumerable<OrderProduct> GetAll()
-        {
-            return _context.OrderProducts.ToList();
-        }
+        //public IEnumerable<OrderProduct> GetAll()
+        //{
+        //    return _context.OrderProducts.ToList();
+        //}
 
-        public async Task<OrderProduct> GetOrderProduct(int id)
-        {
-            return await _context.OrderProducts.FindAsync(id);
-        }
+        //public async Task<OrderProduct> GetOrderProduct(int id)
+        //{
+        //    return await _context.OrderProducts.FindAsync(id);
+        //}
 
-        public async Task<OrderProduct> AddOrderProduct(OrderProduct orderProduct)
-        {
-            _context.OrderProducts.Add(orderProduct);
-            await _context.SaveChangesAsync();
-            return orderProduct;
-        }
+        //public async Task<OrderProduct> AddOrderProduct(OrderProduct orderProduct)
+        //{
+        //    _context.OrderProducts.Add(orderProduct);
+        //    await _context.SaveChangesAsync();
+        //    return orderProduct;
+        //}
 
-        public async Task<OrderProduct> DeleteOrderProduct(int id)
-        {
-            OrderProduct orderProduct = _context.OrderProducts
-              .Where(o => o.Id == id)
-              .FirstOrDefault();
+        //public async Task<OrderProduct> DeleteOrderProduct(int id)
+        //{
+        //    OrderProduct orderProduct = _context.OrderProducts
+        //      .Where(o => o.Id == id)
+        //      .FirstOrDefault();
 
-            _context.OrderProducts.Remove(orderProduct);
-            await _context.SaveChangesAsync();
-            return orderProduct;
-        }
+        //    _context.OrderProducts.Remove(orderProduct);
+        //    await _context.SaveChangesAsync();
+        //    return orderProduct;
+        //}
 
         public async Task<OrderProduct> UpdateOrderProduct(int id, OrderProduct orderProduct)
         {
-            OrderProduct p = await GetOrderProduct(orderProduct.Id);
+            OrderProduct p = await GetItem(orderProduct.Id);
             p.Amount = orderProduct.Amount;
             p.Order = orderProduct.Order;
             p.Product = orderProduct.Product;
@@ -62,7 +63,7 @@ namespace GdmStore.Services
 
         public async Task<OrderProduct> UpdateOrderP(OrderDTO orderDTO)
         {
-            OrderProduct op = await GetOrderProduct(orderDTO.OrderProductId);
+            OrderProduct op = await GetItem(orderDTO.OrderProductId);
             Order o = _context.Orders.Find(orderDTO.OrderId);
             Product product = _context.Products.Find(orderDTO.ProductId);
             await _orderServise.DeleteOrder(o.Id);

@@ -133,6 +133,47 @@ namespace GdmStore.Migrations
                     b.ToTable("ProductTypes");
                 });
 
+            modelBuilder.Entity("GdmStore.Models.Role", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Name");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Roles");
+
+                    b.HasData(
+                        new { Id = 1, Name = "admin" },
+                        new { Id = 2, Name = "user" }
+                    );
+                });
+
+            modelBuilder.Entity("GdmStore.Models.User", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Email");
+
+                    b.Property<string>("Password");
+
+                    b.Property<int>("RoleId");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("RoleId");
+
+                    b.ToTable("Users");
+
+                    b.HasData(
+                        new { Id = 1, Email = "admin@gmail.com", Password = "12345", RoleId = 1 }
+                    );
+                });
+
             modelBuilder.Entity("GdmStore.Models.OrderProduct", b =>
                 {
                     b.HasOne("GdmStore.Models.Order", "Order")
@@ -172,6 +213,14 @@ namespace GdmStore.Migrations
                     b.HasOne("GdmStore.Models.Product", "Product")
                         .WithMany("ProductParameters")
                         .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("GdmStore.Models.User", b =>
+                {
+                    b.HasOne("GdmStore.Models.Role", "Role")
+                        .WithMany("User")
+                        .HasForeignKey("RoleId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 #pragma warning restore 612, 618

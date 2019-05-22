@@ -6,7 +6,7 @@ using System.Web;
 
 namespace GdmStore.Models
 {
-    public class Product //: BaseObject
+    public class Product : BaseObject
     {
         public int Id { get; set; }
 

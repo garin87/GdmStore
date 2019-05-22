@@ -8,49 +8,54 @@ using Microsoft.EntityFrameworkCore;
 using GdmStore.Models;
 using GdmStore.DTO;
 using Microsoft.AspNetCore.Server.Kestrel.Core.Internal.Http;
+using Microsoft.AspNetCore.Authorization;
+using GdmStore.Services.Interfaces;
 
 namespace GdmStore.Services
-{    
-    public class ProductService  //: BaseService<Product> 
+{
+    public class ProductService : BaseService<Product>, IProductService
     {
         private readonly DataContext _context;
-       
-        public ProductService(DataContext context)
+       // private BaseService<Product> _baseService;
+
+        public ProductService(DataContext context) : base(context)
         {
             _context = context;
+            
         }
         
-        public IEnumerable<Product> GetAll()
-        {
-           return _context.Products.ToList();
-        }
+        //public IEnumerable<Product> GetAll()
+        //{
+            
+        //   return _context.Products.ToList();
+        //}
 
-        public async Task<Product> GetProduct(int id)
-        {
-            return await _context.Products.FindAsync(id);
-        }
+        //public async Task<Product> GetProduct(int id)
+        //{
+        //    return await _context.Products.FindAsync(id);
+        //}
 
-        public async Task<Product> AddProduct(Product product)
-        {
-                _context.Products.Add(product);
-                await _context.SaveChangesAsync();
-            return product;
-        }
+        //public async Task<Product> AddProduct(Product product)
+        //{
+        //        _context.Products.Add(product);
+        //        await _context.SaveChangesAsync();
+        //    return product;
+        //}
 
-        public async Task<Product> DeleteProduct(int id)
-        {
-            Product product = _context.Products
-              .Where(o => o.Id == id)
-              .FirstOrDefault();
+        //public async Task<Product> DeleteProduct(int id)
+        //{
+        //    Product product = _context.Products
+        //      .Where(o => o.Id == id)
+        //      .FirstOrDefault();
 
-            _context.Products.Remove(product);
-            await _context.SaveChangesAsync();
-            return product;
-        }
+        //    _context.Products.Remove(product);
+        //    await _context.SaveChangesAsync();
+        //    return product;
+        //}
 
         public async Task<Product> UpdateProduct(int id, Product product)
         {
-            Product p = await GetProduct(product.Id);
+            Product p = await GetItem(product.Id);
             p.Name = product.Name;
             p.Number = product.Number;
             p.Amount = product.Amount;

@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace GdmStore.Models
 {
-    public class Parameter //: BaseObject
+    public class Parameter : BaseObject
     {
-        public int Id { get; set; }
+       // public int Id { get; set; }
         public string Name { get; set; }
 
         [ForeignKey("ProductType")]

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using GdmStore.ViewModels;
 using Microsoft.EntityFrameworkCore;
 
 namespace GdmStore.Models
@@ -25,6 +26,7 @@ namespace GdmStore.Models
         public DbSet<User> Users { get; set; }
         public DbSet<Role> Roles { get; set; }
 
+        
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<User>()
@@ -38,7 +40,7 @@ namespace GdmStore.Models
                .WithMany(e => e.Products)
                .HasForeignKey(c => c.ProductTypeId)
                .OnDelete(DeleteBehavior.Cascade);
-           
+
             modelBuilder.Entity<Parameter>()
                .HasOne(Pr => Pr.ProductType)
                .WithMany(Pt => Pt.Parameters)
@@ -69,19 +71,27 @@ namespace GdmStore.Models
                 .HasForeignKey("ProductId")
                .OnDelete(DeleteBehavior.Cascade);
 
+            string adminRoleName = "admin";
+            string userRoleName = "user";
+
+            string adminEmail = "admin@gmail.com";
+            string adminPassword = "12345";
+
+            // добавляем роли
+            Role adminRole = new Role { Id = 1, Name = adminRoleName };
+            Role userRole = new Role { Id = 2, Name = userRoleName };
+            User adminUser = new User { Id = 1, Email = adminEmail, Password = adminPassword, RoleId = adminRole.Id };
+
+            modelBuilder.Entity<Role>().HasData(new Role[] { adminRole, userRole });
+            modelBuilder.Entity<User>().HasData(new User[] { adminUser });
 
             base.OnModelCreating(modelBuilder);
         }
-        
+
         internal Product FirstOrDefault(Func<object, bool> p)
         {
             throw new NotImplementedException();
         }
+
     }
 }
-
-      
-    
-   
-
-

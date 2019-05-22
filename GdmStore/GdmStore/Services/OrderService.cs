@@ -6,34 +6,35 @@ using GdmStore.Models;
 using GdmStore.DTO;
 using GdmStore.Controllers;
 using Microsoft.EntityFrameworkCore;
+using GdmStore.Services.Interfaces;
 
 namespace GdmStore.Services
 {
-    public class OrderService
+    public class OrderService : BaseService<Order>, IOrderService
     {
         private readonly DataContext _context;
 
-        public OrderService(DataContext context)
+        public OrderService(DataContext context) : base(context)
         {
             _context = context;
         }
 
-        public IEnumerable<Order> GetAll()
-        {
-            return  _context.Orders.ToList();
-        }
+        //public IEnumerable<Order> GetAll()
+        //{
+        //    return  _context.Orders.ToList();
+        //}
 
-        public async Task<Order> GetOrder(int id)
-        {  
-            return await _context.Orders.FindAsync(id);
-        }
+        //public async Task<Order> GetOrder(int id)
+        //{  
+        //    return await _context.Orders.FindAsync(id);
+        //}
 
-        public async Task<Order> AddOrder(Order order)
-        {
-            _context.Orders.Add(order);
-            await _context.SaveChangesAsync();
-            return order;
-        }
+        //public async Task<Order> AddOrder(Order order)
+        //{
+        //    _context.Orders.Add(order);
+        //    await _context.SaveChangesAsync();
+        //    return order;
+        //}
 
         public async Task<Order> DeleteOrder(int id)
         {
@@ -56,7 +57,7 @@ namespace GdmStore.Services
 
         public async Task<Order> UpdateOrder(int id, Order order)
         {
-            Order p = await GetOrder(order.Id);
+            Order p = await GetItem(order.Id);
             p.NameCompany = order.NameCompany;
             p.Price = order.Price;
             p.DateTime = order.DateTime;
@@ -104,9 +105,6 @@ namespace GdmStore.Services
                return null;
             }
             
-
-       
-
             return orderDTO;
         }
 

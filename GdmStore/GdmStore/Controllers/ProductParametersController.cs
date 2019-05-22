@@ -175,9 +175,9 @@ namespace GdmStore
         // api/ProductParameters/GetSumAmountByParam/1?param=Стандарт&paramId=2&paramDiameterId=4&diameter=20
         [HttpGet]
         [Route("GetSumAmountByParam/{typeId}")]
-        public double GetSumAmountByParam(int typeId, string param, int paramId, int paramDiameterId, string diameter)
+        public async Task<double> GetSumAmountByParam(int typeId, string param, int paramId, int paramDiameterId, string diameter)
         {
-            return _productParameterService.GetSumAmountByParam(typeId, param, paramId, paramDiameterId, diameter);
+            return await _productParameterService.GetSumAmountByParam(typeId, param, paramId, paramDiameterId, diameter);
         }
 
     }

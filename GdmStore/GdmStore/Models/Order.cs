@@ -6,9 +6,9 @@ using System.Web;
 
 namespace GdmStore.Models
 {
-    public class Order
+    public class Order : BaseObject
     {
-        public int Id { get; set; }
+        //public int Id { get; set; }
 
         public string NameCompany { get; set; }
         public double Price { get; set; }

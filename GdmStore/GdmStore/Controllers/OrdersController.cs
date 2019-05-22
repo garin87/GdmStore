@@ -25,7 +25,6 @@ namespace GdmStore.Controllers
             _orderService = new OrderService(_context);
         }
   
-
         // GET: api/Orders
         [HttpGet]
         public IEnumerable<Order> GetOrders()
@@ -42,7 +41,7 @@ namespace GdmStore.Controllers
                 return BadRequest(ModelState);
             }
 
-            var order = await _orderService.GetOrder(id);
+            var order = await _orderService.GetItem(id);
 
             if (order == null)
             {
@@ -80,7 +79,7 @@ namespace GdmStore.Controllers
                 return BadRequest(ModelState);
             }
 
-            var orderNew = await _orderService.AddOrder(order);
+            var orderNew = await _orderService.AddItem(order);
 
             return Ok(orderNew);
         }

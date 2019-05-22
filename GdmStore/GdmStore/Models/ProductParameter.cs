@@ -6,9 +6,9 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace GdmStore.Models
 {
-    public class ProductParameter //: BaseObject
+    public class ProductParameter : BaseObject
     {
-        public int Id { get; set; }
+        // public int Id { get; set; }
 
         public int ProductId { get; set; }
         public virtual Product Product { get; set; }

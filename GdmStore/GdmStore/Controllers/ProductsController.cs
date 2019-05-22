@@ -1,4 +1,4 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Authorization;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -11,25 +11,28 @@ using GdmStore.Services;
 
 namespace GdmStore
 {
+   // [Authorize(Roles = "admin")] //
     [Route("api/[controller]")]
     [ApiController]
-    public class ProductsController : ControllerBase 
+    public class ProductsController : Controller
     {
         private readonly DataContext _context;
 
        
         private ProductService _productService;
 
-        public ProductsController(DataContext context)
+        public ProductsController(DataContext context) 
         {
             _context = context;
             _productService = new ProductService(_context);
         }
 
+
         // GET: api/Products/GetAll
         [HttpGet]
         public IActionResult GetAll()
         {
+            
             return Ok(_productService.GetAll());
         }
 
@@ -42,7 +45,7 @@ namespace GdmStore
                 return BadRequest(ModelState);
             }
 
-            var product = await _productService.GetProduct(id);
+            var product = await _productService.GetItem(id);
 
             if (product == null)
             {
@@ -61,7 +64,7 @@ namespace GdmStore
                 return BadRequest(ModelState);
             }
 
-            var productNew = await _productService.AddProduct(product);
+            var productNew = await _productService.AddItem(product);
 
             return Ok(productNew);
         }
@@ -76,7 +79,7 @@ namespace GdmStore
                 return BadRequest(ModelState);
             }
 
-            var product = await _productService.DeleteProduct(id);
+            var product = await _productService.DeleteItem(id);
             if (product == null)
             {
                 return NotFound();
@@ -135,7 +138,7 @@ namespace GdmStore
         {
             return await _productService.DeleteProducts(id);
         }
-
+      //  [Authorize(Roles = "Admin")]
         [HttpGet]
         [Route("SortProducts/{id}")]
         public async Task<IEnumerable<ProductDTO>> SortProducts([FromRoute] int id)

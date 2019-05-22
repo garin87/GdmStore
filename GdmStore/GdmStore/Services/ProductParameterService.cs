@@ -8,18 +8,18 @@ using Microsoft.EntityFrameworkCore;
 using GdmStore.Models;
 using GdmStore.DTO;
 using GdmStore.Services;
+using GdmStore.Services.Interfaces;
 
 namespace GdmStore.Services
 {
-    public class ProductParameterService
+    public class ProductParameterService : BaseService<ProductParameter>, IProductParameterService
     {
         private readonly DataContext _context;
 
-        public ProductParameterService(DataContext context)
+        public ProductParameterService(DataContext context): base(context)
         {
             _context = context;
         }
-
 
         public async Task<IEnumerable<ProductParameter>> GetProductParameters(long id)
         {
@@ -109,9 +109,9 @@ namespace GdmStore.Services
                 .SumAsync(a => a.Product.Amount);
         }
 
-        public double GetSumAmountByParam(int typeId, string param, int paramId, int paramDiameterId, string diameter)
+        public async Task<double> GetSumAmountByParam(int typeId, string param, int paramId, int paramDiameterId, string diameter)
         {
-            var sumAmount =   _context.ProductParameters
+            var sumAmount =  await _context.ProductParameters
                         .Include(p => p.Product)
                         .Where(prod => prod.Product.ProductTypeId == typeId)
                         .Where(pp1 => pp1.Value == param && pp1.ParameterId == paramId)
@@ -121,7 +121,7 @@ namespace GdmStore.Services
                                (pp1, pp) => new ProductParameter
                                {
                                    Product = pp1.Product
-                               }).Sum(a => a.Product.Amount);
+                               }).SumAsync(a => a.Product.Amount);
 
             return Math.Round(sumAmount, 2);
         }

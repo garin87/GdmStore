@@ -7,52 +7,53 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using GdmStore.Models;
 using GdmStore.Services;
+using GdmStore.Services.Interfaces;
 
 namespace GdmStore.Services
 {
-    public class ParameterService //: BaseService<Parameter>
+    public class ParameterService : BaseService<Parameter>, IParameterService
     {
         private readonly DataContext _context;
 
-        public ParameterService(DataContext context)
+        public ParameterService(DataContext context) : base(context)
         {
             _context = context;
         }
 
-        public async Task<IEnumerable<Parameter>> GetAll()
-        {
-            return await _context.Parameters.ToListAsync();
-        }
+        //public async Task<IEnumerable<Parameter>> GetAll()
+        //{
+        //    return await _context.Parameters.ToListAsync();
+        //}
 
-        public async Task<Parameter> GetParameter(long id)
-        {
-            return await _context.Parameters.FindAsync(id);
-        }
+        //public async Task<Parameter> GetParameter(long id)
+        //{
+        //    return await _context.Parameters.FindAsync(id);
+        //}
 
-        public async Task<Parameter> AddParameter(Parameter parameter)
-        {
-            _context.Parameters.Add(parameter);
-            await _context.SaveChangesAsync();
+        //public async Task<Parameter> AddParameter(Parameter parameter)
+        //{
+        //    _context.Parameters.Add(parameter);
+        //    await _context.SaveChangesAsync();
 
-            return parameter;
-        }
+        //    return parameter;
+        //}
 
-        public async Task<Parameter> DeleteParameter(long id)
-        {
-            //var parameter = await _context.Parameters.FindAsync(id);
-            Parameter parameter = _context.Parameters
-              .Where(o => o.Id == id)
-              .FirstOrDefault();
+        //public async Task<Parameter> DeleteParameter(long id)
+        //{
+        //    //var parameter = await _context.Parameters.FindAsync(id);
+        //    Parameter parameter = _context.Parameters
+        //      .Where(o => o.Id == id)
+        //      .FirstOrDefault();
 
-            _context.Parameters.Remove(parameter);
-            await _context.SaveChangesAsync();
+        //    _context.Parameters.Remove(parameter);
+        //    await _context.SaveChangesAsync();
 
-            return parameter;
-        }
+        //    return parameter;
+        //}
 
         public async Task<Parameter> UpdateParameter(long id, Parameter parameter)
         {
-            Parameter p = await GetParameter(parameter.Id);
+            Parameter p = await GetItem(parameter.Id);
             p.Name = parameter.Name;
             //p.Description = parameter.Description;
             //p.SteelGrade = parameter.SteelGrade;

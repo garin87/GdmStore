@@ -26,9 +26,9 @@ namespace GdmStore
      
         // GET: api/Parameters
         [HttpGet]
-        public async Task<IActionResult> GetParameters()
+        public IActionResult GetParameters()
         {
-            return Ok( await _parameterService.GetAll()); 
+            return Ok( _parameterService.GetAll()); 
         }
 
         // GET: api/Parameters/5
@@ -40,7 +40,7 @@ namespace GdmStore
                 return BadRequest(ModelState);
             }
 
-            var parameter = await _parameterService.GetParameter(id);
+            var parameter = await _parameterService.GetItem(id);
 
             if (parameter == null)
             {
@@ -78,7 +78,7 @@ namespace GdmStore
                 return BadRequest(ModelState);
             }
 
-            var parameterNew = await _parameterService.AddParameter(parameter);
+            var parameterNew = await _parameterService.AddItem(parameter);
 
             return Ok(parameterNew);
         }
@@ -92,7 +92,7 @@ namespace GdmStore
                 return BadRequest(ModelState);
             }
 
-            var parameter = await _parameterService.DeleteParameter(id);
+            var parameter = await _parameterService.DeleteItem(id);
 
             if (parameter == null)
             {

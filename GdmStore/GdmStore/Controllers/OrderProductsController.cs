@@ -13,7 +13,7 @@ namespace GdmStore.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class OrderProductsController : ControllerBase
+    public class OrderProductsController : Controller
     {
         private readonly DataContext _context;
 
@@ -41,7 +41,7 @@ namespace GdmStore.Controllers
                 return BadRequest(ModelState);
             }
 
-            var orderProduct = await _orderProductService.GetOrderProduct(id);
+            var orderProduct = await _orderProductService.GetItem(id);
 
             if (orderProduct == null)
             {
@@ -79,7 +79,7 @@ namespace GdmStore.Controllers
                 return BadRequest(ModelState);
             }
 
-            var orderProductNew = await _orderProductService.AddOrderProduct(orderProduct);
+            var orderProductNew = await _orderProductService.AddItem(orderProduct);
 
             return Ok(orderProductNew);
         }
@@ -93,7 +93,7 @@ namespace GdmStore.Controllers
                 return BadRequest(ModelState);
             }
 
-            var orderProduct = await _orderProductService.DeleteOrderProduct(id);
+            var orderProduct = await _orderProductService.DeleteItem(id);
             if (orderProduct == null)
             {
                 return NotFound();

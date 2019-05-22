@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace GdmStore.Models
 {
-    public class ProductType //: BaseObject
+    public class ProductType : BaseObject
     {   
-        public int Id { get; set; }
+       // public int Id { get; set; }
 
         public string NameType { get; set; }
       

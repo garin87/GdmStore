@@ -7,7 +7,7 @@ namespace GdmStore.Models
 {
     public abstract class BaseObject
     {
-       //public long Id { get; set; }
+       public int Id { get; set; }
     }
 
 }
