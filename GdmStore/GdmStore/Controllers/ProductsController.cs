@@ -1,32 +1,26 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using GdmStore.Models;
 using GdmStore.DTO;
 using GdmStore.Services;
 
 namespace GdmStore
 {
-   // [Authorize(Roles = "admin")] //
+    [Authorize(Roles = "admin")] 
     [Route("api/[controller]")]
     [ApiController]
     public class ProductsController : Controller
     {
         private readonly DataContext _context;
-
-       
         private ProductService _productService;
-
+ 
         public ProductsController(DataContext context) 
         {
             _context = context;
             _productService = new ProductService(_context);
         }
-
 
         // GET: api/Products/GetAll
         [HttpGet]
@@ -69,7 +63,6 @@ namespace GdmStore
             return Ok(productNew);
         }
 
-
         // DELETE: api/Products/5
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteProduct([FromRoute] int id)
@@ -87,7 +80,6 @@ namespace GdmStore
 
             return Ok(product);
         }
-
 
         // PUT: api/Products/PutProduct/5
         [HttpPut("{id}")]
@@ -107,7 +99,6 @@ namespace GdmStore
 
            return NoContent();
         }
-
 
         //GET: api/Products/GetProducts/1
         [HttpGet]
@@ -166,19 +157,6 @@ namespace GdmStore
         {
             return await _productService.GetParamForOrder(id);
         }
-
- 
-
-        //[HttpGet]
-        //[Route("SortProduct/{id}")]
-        //public async Task<Product> SortProduct(int id)
-        //{
-        //    return await _productService.SortProducs(id);
-        //}
-
-
-    
-        //private bool ProductExists(long id) => _context.Products.Any(e => e.ProductId == id);
 
     }
 }

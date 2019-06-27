@@ -1,0 +1,266 @@
+﻿html {
+    font-family: sans-serif;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+a, ul {
+    text-decoration: none;
+    text-decoration-style: none;
+}
+
+body {
+    background-color: #ececec;
+}
+
+#mainWrapper {
+    display:flex;
+    flex-direction:column;
+    justify-content: center;
+    align-items:center;
+}
+
+.navigation {
+    background-color: #5277a4;
+    color: #fafafa;
+}
+.navbar {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    padding-top: 0;
+    padding-left: 0;
+}
+
+.navbar-item:hover {
+    text-decoration: underline;
+}
+
+.navbar-list {
+    display: flex;
+    flex-direction:row;
+    font-size: 1.2rem;
+    list-style-type: none;
+    padding: 0;
+    font-weight: 700;
+    margin-bottom:0;
+}
+
+.navbar-item{
+    margin-left:15px;
+}
+
+.nav-product-container {
+    margin: 0;
+    padding: 0;
+}
+
+.nav-product-container h2 {
+   margin-left: 0px;
+   padding-left: 0px;
+}
+
+.currency-content {
+    display: flex;
+    padding-top: 5px;
+    padding-left: 5px;
+}
+
+.currency-content p {
+   padding-left: 10px;
+   margin-bottom: 0;
+   font-size: 1rem;
+   font-weight: 700;
+}
+
+.content-container {
+    padding-left: 0;
+    padding-right: 0;
+}
+
+.product-container {
+    display: flex;
+    flex-direction: column;
+    padding-left:0;
+}
+
+.product-container h2{
+    font-size: 1.5rem; 
+    margin-top: 10px;
+    padding-left:0;
+    margin-left:0;
+}
+
+.signboard-product{
+    margin:0;
+    padding:0;
+    /*width:1165px;*/
+}
+
+.signboard-product h2 {
+        margin-left: 0;
+        padding-left: 0px;
+        padding-bottom: 5px;
+        background-color: #7A9E9F;
+        color: white;
+}
+
+.list-name-products {
+    display: flex;
+    flex-direction: row;
+    padding-left: 15px;
+    height: 43px;
+    flex-flow: row wrap;
+}
+
+.list-name-parameters {
+    padding-left: 0;
+    padding-right: 0;
+    margin-left: 0;
+}
+
+.name-item {
+    margin-bottom: 5px;
+    background-color: #B5D6B2;
+    color: black;
+    font-weight: 500;
+}
+
+.name-item:hover {
+  background-color: #90cf8a;
+}
+
+.list-types {
+    display: flex;
+    flex-direction: row;
+    flex-flow: row wrap;
+}
+
+.list-type{
+    margin-left:0;
+    padding-left:0;
+}
+
+.type-item{
+    width: 100px;
+}
+.type-captions {
+    padding-bottom: 5px;
+    background-color: #7A9E9F;
+    color: white;
+}
+.list-diameters {
+    display: flex;
+    flex-direction: row;
+    flex-flow: row wrap;
+}
+
+.list-diameters{
+    padding-left:0;  
+}
+.diameters-value {
+    padding-bottom: 5px;
+    background-color: #7A9E9F;
+    color: white;
+}
+.dashboard-container {
+    margin-top: 10px;
+    margin-left: 0;
+    padding-left: 0;
+    padding-right: 0;
+}
+.dashboard-product h2 {
+    padding-left: 0;
+    padding-bottom: 5px;
+    padding-left: 0px;
+    background-color: #7A9E9F;
+    color: white;
+}
+
+.dashboard-wrapper {
+    margin-top:10px;
+    padding-left: 15px;
+}
+
+.thead-table {
+    background-color: #b6b2b2;
+}
+
+/*///////////////////////update*/
+.wrapper-list-update{
+    display:flex;
+    flex-direction: row;
+}
+.input-update {
+    padding-left: 0px;
+}
+
+    .input-update input {
+        padding: 1px;
+        padding-left: 5px;
+    }
+
+.btn-add{
+    display:flex;
+    align-items: center;
+    padding-top: 30px;
+}
+.form-group {
+    margin-bottom:0;
+}
+
+/*#saveUpdate{
+    margin-top: 13px;
+}*/
+/*/////////////// order*/
+.wrapper-list-order {
+    display: flex;
+    flex-direction: row;
+}
+.order-save {
+    padding-top: 30px;
+}
+
+.order-container {
+    display: flex;
+    flex-direction: column;
+    padding-left: 0;
+    margin: 0;
+    padding: 0;
+    /*width: 1155px;*/
+}
+.order-caption {
+    padding-bottom: 5px;
+    padding-left: 0px;
+    background-color: #7A9E9F;
+    color: white;
+}
+.order-container h2 {
+    font-size: 1.5rem;
+    margin-top: 10px;
+    padding-left: 0;
+    margin-left: 0;
+}
+
+.order-buttons{
+    padding-top:32px;
+}
+.order-bth {
+    background-color: #B5D6B2;
+    color: black;
+    font-weight: 500;
+}
+.order-bth:hover {
+    background-color: #90cf8a;
+}
+  /*/////// add product*/
+
+.wrapper-addProduct {
+    display: flex;
+    flex-direction: row;
+    padding:0;
+}
+.control-select{
+    padding:1px;
+}

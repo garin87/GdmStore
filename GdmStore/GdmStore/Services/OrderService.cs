@@ -19,23 +19,6 @@ namespace GdmStore.Services
             _context = context;
         }
 
-        //public IEnumerable<Order> GetAll()
-        //{
-        //    return  _context.Orders.ToList();
-        //}
-
-        //public async Task<Order> GetOrder(int id)
-        //{  
-        //    return await _context.Orders.FindAsync(id);
-        //}
-
-        //public async Task<Order> AddOrder(Order order)
-        //{
-        //    _context.Orders.Add(order);
-        //    await _context.SaveChangesAsync();
-        //    return order;
-        //}
-
         public async Task<Order> DeleteOrder(int id)
         {
             Order order = _context.Orders
@@ -122,8 +105,8 @@ namespace GdmStore.Services
         public async Task<Product> UpdateOrderAmount(int id)
         {
             Product pr = _context.OrderProducts
-                                  .Include(aa => aa.Product)
-                                  .Where(k => k.OrderId == id).Select(dd => dd.Product).FirstOrDefault();
+                           .Include(aa => aa.Product)
+                           .Where(k => k.OrderId == id).Select(dd => dd.Product).FirstOrDefault();
 
             var valueAmount = _context.OrderProducts
                             .Include(op => op.Product)

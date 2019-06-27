@@ -16,42 +16,12 @@ namespace GdmStore.Services
     public class ProductService : BaseService<Product>, IProductService
     {
         private readonly DataContext _context;
-       // private BaseService<Product> _baseService;
-
+    
         public ProductService(DataContext context) : base(context)
         {
             _context = context;
             
         }
-        
-        //public IEnumerable<Product> GetAll()
-        //{
-            
-        //   return _context.Products.ToList();
-        //}
-
-        //public async Task<Product> GetProduct(int id)
-        //{
-        //    return await _context.Products.FindAsync(id);
-        //}
-
-        //public async Task<Product> AddProduct(Product product)
-        //{
-        //        _context.Products.Add(product);
-        //        await _context.SaveChangesAsync();
-        //    return product;
-        //}
-
-        //public async Task<Product> DeleteProduct(int id)
-        //{
-        //    Product product = _context.Products
-        //      .Where(o => o.Id == id)
-        //      .FirstOrDefault();
-
-        //    _context.Products.Remove(product);
-        //    await _context.SaveChangesAsync();
-        //    return product;
-        //}
 
         public async Task<Product> UpdateProduct(int id, Product product)
         {

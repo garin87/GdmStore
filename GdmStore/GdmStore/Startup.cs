@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -12,22 +9,24 @@ using GdmStore.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.AspNetCore.Authentication.Cookies;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc.Authorization;
-using Microsoft.AspNetCore.CookiePolicy;
 using GdmStore.Services.Interfaces;
+using Microsoft.AspNetCore.Mvc;
+using System.IO;
+using Microsoft.AspNetCore.DataProtection;
+using Microsoft.AspNetCore.SpaServices.Webpack;
 
 namespace GdmStore
 {
     public class Startup
     {
-        public Startup(IConfiguration configuration)
+        private IHostingEnvironment _hostingEnvironment;
+        public Startup(IConfiguration configuration, IHostingEnvironment environment)
         {
             Configuration = configuration;
+            _hostingEnvironment = environment;
         }
 
         public IConfiguration Configuration { get; }
-
 
         public void ConfigureServices(IServiceCollection services)
         {
@@ -37,22 +36,32 @@ namespace GdmStore
                       options.SerializerSettings.DateFormatString = "dd.MM.yyyy HH:mm";
                     });
 
-            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
-                 .AddCookie(options =>
-                 {  
-                     options.Cookie.HttpOnly = true;
-                     options.Cookie.SameSite = SameSiteMode.Lax;
-                     options.Cookie.Name = "SimpleTalk.AuthCookieAspNetCore";
-                     options.LoginPath = new PathString("/Account/Login");
-                     options.AccessDeniedPath = new PathString("/Account/Login");
-
-                 });
-            services.Configure<CookiePolicyOptions>(options =>
+            var keysDirectoryName = "Keys";
+            var keysDirectoryPath = Path.Combine(_hostingEnvironment.ContentRootPath, keysDirectoryName);
+            if (!Directory.Exists(keysDirectoryPath))
             {
-                options.MinimumSameSitePolicy = SameSiteMode.Strict;
-                options.HttpOnly = HttpOnlyPolicy.None;
+                Directory.CreateDirectory(keysDirectoryPath);
+            }
+            services.AddDataProtection()
+              .PersistKeysToFileSystem(new DirectoryInfo(keysDirectoryPath))
+              .SetApplicationName("CustomCookieAuthentication");
+
+            services.Configure<CookiePolicyOptions>(options => {
+                options.CheckConsentNeeded = context => true;
+                options.MinimumSameSitePolicy = SameSiteMode.None;
             });
-            //services.AddMvc(options => options.Filters.Add(new AuthorizeFilter()));
+
+            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+              .AddCookie(options => {
+                  options.LoginPath = new PathString("/Account/Login");
+                  options.ExpireTimeSpan = TimeSpan.FromDays(30);
+                  options.Cookie.Expiration = TimeSpan.FromDays(30);
+                  options.SlidingExpiration = true;
+              });
+
+
+            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_0);
+
 
             string conString = Configuration["ConnectionStrings:DefaultConnection"];
             services.AddDbContext<DataContext>(options =>
@@ -74,19 +83,23 @@ namespace GdmStore
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
+                app.UseWebpackDevMiddleware(new WebpackDevMiddlewareOptions
+                {
+                    ProjectPath = Path.Combine(Directory.GetCurrentDirectory(), "ClientApp"),
+                    HotModuleReplacement = true
+                });
             }
 
-            app.UseMvc();
             app.UseDeveloperExceptionPage();
             app.UseStatusCodePages();
             app.UseDefaultFiles();
             app.UseStaticFiles();
 
-            //app.UseCookiePolicy();
-            //app.UseAuthentication();
+            app.UseCookiePolicy();
+            app.UseAuthentication();
 
             app.UseMvcWithDefaultRoute();
-
+            app.UseMvc();
 
         }
     }

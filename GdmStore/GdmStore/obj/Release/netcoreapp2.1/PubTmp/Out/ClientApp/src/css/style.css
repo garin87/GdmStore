@@ -1,0 +1,173 @@
+﻿html {
+    font-family: sans-serif;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+a, ul {
+    text-decoration: none;
+    text-decoration-style: none;
+}
+
+body {
+    background-color:lightblue;
+}
+#mainWrapper {
+    width:1400px;
+}
+
+.navbar {
+    margin-top: 0;
+    padding-top: 0;
+}
+
+.navbar-item:hover {
+    text-decoration: underline;
+}
+
+.currency-content{
+    display:flex;
+}
+.currency-content p{
+   padding-left: 10px;
+   margin-bottom:0;
+   font-size: 1rem;
+   font-weight: 700;
+}
+.navbar-list {
+    font-size: 1.2rem;
+    list-style-type: none;
+    padding: 0;
+    font-weight: 700;
+}
+.content-container {
+    padding-left:0;
+    padding-right:0;
+}
+.product-container {
+    display: flex;
+    flex-direction: column;
+    padding-left:0;
+}
+
+.product-container h2{
+    font-size: 1.5rem; 
+    margin-top: 10px;
+    padding-left:0;
+    margin-left:0;
+}
+.signboard-product{
+    margin:0;
+    padding:0;
+    width:1165px;
+}
+.signboard-product h2{
+    margin-left: 0;
+    padding-left: 0;
+}
+
+.nav-product-container {
+    margin: 0;
+    padding: 0;
+    width: 1165px;
+}
+
+.nav-product-container h2 {
+    margin-left: 0;
+    padding-left: 0;
+}
+
+.list-name-products {
+    display: flex;
+    flex-direction: row;
+    padding-left: 15px;
+    flex-flow: row wrap;
+}
+
+.list-name-parameters{
+    padding-left:0;
+    margin-left:0;
+}
+
+.name-item{
+    width: 210px;
+    margin-bottom:5px;
+}
+
+.list-types {
+    display: flex;
+    flex-direction: row;
+    flex-flow: row wrap;
+}
+
+.list-type{
+    margin-left:0;
+    padding-left:0;
+}
+
+.type-item{
+    width: 100px;
+}
+
+.list-diameters {
+    display: flex;
+    flex-direction: row;
+    flex-flow: row wrap;
+}
+
+.list-diameters{
+    padding-left:0;  
+}
+.dashboard-container {
+    margin-top: 10px;
+    margin-left:0;
+    padding-left:0;
+}
+.dashboard-product h2{
+    padding-left: 0;
+}
+.dashboard-wrapper {
+    margin-top:10px;
+    padding-left: 15px;
+}
+/*///////////////////////update*/
+
+.input-update{
+    padding-left: 0px;
+}
+.input-update input{
+    padding: 1px;
+}
+.btn-add{
+    display:flex;
+    align-items: center;
+    padding-top: 15px;
+    padding-left: 0;
+}
+/*/////////////// order*/
+.order-save{
+    padding-top: 30px;
+}
+
+.order-container {
+    display: flex;
+    flex-direction: column;
+    padding-left: 0;
+    margin: 0;
+    padding: 0;
+    width: 1155px;
+}
+
+.order-container h2 {
+    font-size: 1.5rem;
+    margin-top: 10px;
+    padding-left: 0;
+    margin-left: 0;
+}
+
+.order-buttons{
+    padding-top:32px;
+}
+    

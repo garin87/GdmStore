@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <meta  name="viewport"  content="width=device-width, initial-scale=1.0"/>
+    <title></title>
+    
+    <link href="/dist/style.css" rel="stylesheet" />
+    
+</head>
+<body>
+    <div class="container-fluid main-wrapper" id="mainWrapper">
+        <h3 class="p-2 bg-primary text-white text-center">Складской учет</h3>
+        <div class="row wrapper-currency" id="wrapperCurrency">
+            <div class="col list-currency" id="valueCurrency">
+                <div class="col currency-content">
+                    <p>По курсу НБРБ на <span id="currencyContent"></span>: </p>
+                    <p>1 Доллар США: <span id="valueUSD"></span></p>
+                    <p>1 Eвро: <span id="valueEUR"></span></p>
+                </div>
+            </div>
+        </div>
+        <div class="row nav-wrapper">
+            <div class="col-2">
+                <nav class="navbar flex-column" id="navigationBar">
+                    <ul class="navbar-list">
+                        <li class="navbar-item" id="product" style="cursor:pointer">Товары</li>
+                        <li class="navbar-item" id="contact" style="cursor:pointer">Заказы</li>
+                        <li class="navbar-item" id="statistics" style="cursor:pointer">Статистика</li>
+                        <li class="navbar-item" id="addProduct" style="cursor:pointer">Добавить товар</li>
+                    </ul>
+                </nav>
+            </div>
+            <div class="col-10 content-container" id="content">
+
+            </div>
+        </div>
+        <div class="row dashboard-wrapper" id="dashboardWrapper">
+            <div class="col dashboard-container" id="dashboardContent">
+
+            </div>
+        </div>
+     </div>
+    
+    <script src="/dist/GdmStore.bundle.js"></script>
+    
+</body>
+</html>

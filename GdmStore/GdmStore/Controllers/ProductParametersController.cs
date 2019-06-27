@@ -8,9 +8,11 @@ using Microsoft.EntityFrameworkCore;
 using GdmStore.Models;
 using GdmStore.Services;
 using GdmStore.DTO;
+using Microsoft.AspNetCore.Authorization;
 
 namespace GdmStore
 {
+    [Authorize(Roles = "admin")]
     [Route("api/[controller]")]
     [ApiController]
     public class ProductParametersController : ControllerBase
@@ -127,7 +129,7 @@ namespace GdmStore
             return _context.ProductParameters.Any(e => e.Id == id);
         }
 
-        //api/ProductParameters/GetProductDiameters/4?param=ТВЧ&paramId=2
+        //api/ProductParameters/GetProductParameters/4
         [HttpGet]
         [Route("GetProductParameters/{id}")]
         public Task<IEnumerable<ProductParameter>> GetProductParameters(long id)
@@ -137,7 +139,7 @@ namespace GdmStore
 
         [HttpGet]
         [Route("GetProductDiameters/{id}")]
-        public Task<List<string>> GetProductDiameters(int id, [FromQuery]string param, [FromQuery]int paramId)
+        public Task<IEnumerable<DiameterDTO>> GetProductDiameters(int id, [FromQuery]string param, [FromQuery]int paramId)
         {
             return _productParameterService.GetProductDiameters(id, param, paramId);
         }
@@ -172,7 +174,7 @@ namespace GdmStore
             return await _productParameterService.GetSumTubes(value);
         }
 
-        // api/ProductParameters/GetSumAmountByParam/1?param=Стандарт&paramId=2&paramDiameterId=4&diameter=20
+        // api/ProductParameters/GetSumAmountByParam/1?param=Стандарт&paramId=1&paramDiameterId=4&diameter=20
         [HttpGet]
         [Route("GetSumAmountByParam/{typeId}")]
         public async Task<double> GetSumAmountByParam(int typeId, string param, int paramId, int paramDiameterId, string diameter)

@@ -270,6 +270,7 @@ function formatDiameter(item, i) {
     button.className = "btn btn-success text-white";
 
     button.id = "TypeId" + item[i];
+    button.setAttribute('diameterId', item[i]);
     button.innerHTML = item[i];
     div.appendChild(button);
 
@@ -330,18 +331,19 @@ function formatDiameterProducts(item, i) {
     row.className = "row text-left list-params text-center";
     col.className = "col";
 
-    row.innerHTML = '<div class="col ">' + item[i].productId + '</div>' +
-        '<div class="col">' +  item[i].nameType + '</div>' +
-        '<div class="col">' + item[i].number + '</div>' +
-        '<div class="col">' + item[i].manufacturer + '</div>' +
-        '<div class="col">' + item[i].parameters[0].value + '</div>' +
-        '<div class="col">' + item[i].parameters[1].value + '</div>' +
-        '<div class="col">' + item[i].parameters[2].value + '</div>' +
-        '<div class="col">' + item[i].primeCostEUR + '</div>' +
-        '<div class="col">' + item[i].amount + '</div>' + 
-        '<button type="submit" data-button-type="Edit" class="btn btn-outline-primary" id="Edit' + item[i].productId + '">' + 'Изменить' + '</button>' +
-        '<button type="submit" data-button-type="Remove" class="btn btn-outline-danger" id="Remove' + item[i].productId + '">' + 'Удал' + '</button>' +
-        '<button type="submit" data-button-type="Order" class="btn btn-outline-primary " id="Order' + item[i].productId + '">' +  'Заказ' + '</button>'
+    row.innerHTML = `<div class="col "> ${item[i].productId}</div>
+        <div class="col"> ${ item[i].nameType } </div> 
+        <div class="col"> ${ item[i].number } </div>
+        <div class="col"> ${ item[i].manufacturer } + </div> 
+        <div class="col"> ${ item[i].parameters[0].value } </div>
+        <div class="col"> ${ item[i].parameters[1].value } </div> 
+        <div class="col"> ${ item[i].parameters[2].value } </div> 
+        <div class="col"> ${ item[i].primeCostEUR }</div>
+        <div class="col"> ${ item[i].amount } </div>
+        <button type="submit" data-button-type="Edit" class="btn btn-outline-primary" id="Edit${ item[i].productId }"
+> Изменить</button> 
+        <button type="submit" data-button-type="Remove" class="btn btn-outline-danger" id="Remove${item[i].productId}">Удал</button>
+        <button type="submit" data-button-type="Order" class="btn btn-outline-primary " id="Order${item[i].productId}">Заказ</button>`
  
    // console.log(item[i].parameters[1].value);
     document.getElementById("list-param-products").appendChild(row);
@@ -366,8 +368,8 @@ function formatDiameterTube(item, i) {
         '<button type="submit" data-button-type="Edit" class="btn btn-outline-primary" id="Edit' + item[i].productId + '">' + 'Изменить' + '</button>' +
         '<button type="submit" data-button-type="Remove" class="btn btn-outline-danger" id="Remove' + item[i].productId + '">' + 'Удал' + '</button>' +
         '<button type="submit" data-button-type="Order" class="btn btn-outline-primary " id="Order' + item[i].productId + '">' + 'Заказ' + '</button>'
-
-    // console.log(item[i].parameters[1].value);
+   
+    //  document.getElementById('list-param-products').insertAdjacentHTML('afterbegin', this.item);
     document.getElementById("list-param-products").appendChild(row);
 
 }
@@ -409,10 +411,10 @@ document.getElementById('DataForm').addEventListener('submit', function (ev) {
         ]
     } 
 
-    fetch( "api/Products/AddProducts", {
-          method: 'POST',
-          headers: {
-              Accept: 'application/json',
+    fetch("api/Products/AddProducts", {
+        method: 'POST',
+        headers: {
+              'Accept': 'application/json',
               'Content-Type': 'application/json',
           },
           body: JSON.stringify(data)

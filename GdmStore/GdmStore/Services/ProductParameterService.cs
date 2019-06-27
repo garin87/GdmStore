@@ -24,7 +24,7 @@ namespace GdmStore.Services
         public async Task<IEnumerable<ProductParameter>> GetProductParameters(long id)
         {
             var value = await _context.ProductParameters
-                                      .Where(p => p.ParameterId == id)
+                                      .Where(p => p.ParameterId == id)    
                                       .GroupBy(m => new { m.ParameterId, m.Value })
                                       .Select(group => group.FirstOrDefault())
                                       .Distinct()
@@ -32,13 +32,19 @@ namespace GdmStore.Services
             return value;
         }
 
-        public async Task<List<string>> GetProductDiameters(int id, string param, int paramId)
+        public async Task<IEnumerable<DiameterDTO>> GetProductDiameters(int id, string param, int paramId)
         {
             var value = await _context.ProductParameters.Where(pp1 => pp1.Value == param && pp1.ParameterId == paramId)
                         .Join(_context.ProductParameters.Where(pp => pp.ParameterId == id),
                                 pp1 => pp1.Product.Id,
                                 pp => pp.Product.Id,
-                               (pp1, pp) => pp.Value)
+                               (pp1, pp) => new DiameterDTO { 
+                                    DiameterValue = pp.Value,
+                                    DiameterId = pp.ParameterId,
+                                    Param = param,
+                                    ParamId = paramId,
+                                    ProductTypeId  = pp.Parameter.ProductTypeId
+                               })
                                .Distinct()
                                .ToListAsync();
             return value;
@@ -129,17 +135,3 @@ namespace GdmStore.Services
 
     }
 }
-
-//var parameters = await _context.ProductParameters.Where(pp => pp.ParameterId == 2 && pp.Value == param)
-//    .ToListAsync();
-
-//var parameters2 = await _context.ProductParameters.Where(pp => pp.Id == id)
-//    .ToListAsync();
-
-//select distinct pp.Value from ProductParameters pp
-//join ProductParameters pp1 on pp1.ProductId = pp.ProductId and pp1.ParameterId = 2 and pp1.Value = 'Стандарт'
-//where pp.ParameterId = 4
-
-//select distinct pp.Value from ProductParameters pp
-//join ProductParameters pp1 on pp1.ProductId = pp.ProductId and pp1.ParameterId = 2 and pp1.Value = 'ТВЧ'
-//where pp.ParameterId = 4

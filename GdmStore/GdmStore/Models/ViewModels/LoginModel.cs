@@ -7,18 +7,13 @@ using System.ComponentModel.DataAnnotations;
 namespace GdmStore.ViewModels
 {
     public class LoginModel
-    {   //[Required]
+    {   
         [Required(ErrorMessage = "Не указан Email")]
+        [DataType(DataType.EmailAddress)]
         public string Email { get; set; }
-        //[Required]
+   
         [Required(ErrorMessage = "Не указан пароль")]
-        //[DataType(DataType.Password)]
+        [DataType(DataType.Password)]
         public string Password { get; set; }
-        //[Required]
-        //public string Name { get; set; }
-        //[Required]
-        //[UIHint("password")]
-        //public string Password { get; set; }
-        //public string ReturnUrl { get; set; } = "/";
     }
 }

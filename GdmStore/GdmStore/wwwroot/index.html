@@ -1,114 +1,46 @@
-﻿
 <!DOCTYPE html>
 <html>
 <head>
-    <meta name="viewport" content="width=device-width" />
-    <title>GDMStore</title>
-    <link rel="stylesheet" href="./lib/CSS/mainStyle.css" />
-    <link rel="stylesheet" href="./lib/bootstrap/dist/css/bootstrap.min.css" />
+    <meta charset="utf-8"/>
+    <meta  name="viewport"  content="width=device-width, initial-scale=1.0"/>
+    <title></title>
+    
+    <link href="/dist/style.css" rel="stylesheet" />
+    
 </head>
 <body>
-    <h3 class="p-2 bg-primary text-white text-center">Товары</h3>
-    <div class="container-fluid main-container">
-        <div class="row product-type text-left list-products" id="list-products">
+    <div class="container-fluid main-wrapper" id="mainWrapper">
+        <!--<h3 class="p-2 bg-primary text-white text-center">Складской учет</h3>-->
+        <div class="col navigation">
+            <nav class="navbar flex-row" id="navigationBar">
+                <ul class="navbar-list">
+                    <li class="navbar-item" id="product" style="cursor:pointer">Товары</li>
+                    <li class="navbar-item" id="contact" style="cursor:pointer">Заказы</li>
+                    <li class="navbar-item" id="statistics" style="cursor:pointer">Статистика</li>
+                    <li class="navbar-item" id="addProduct" style="cursor:pointer">Добавить товар</li>
+                </ul>
+            </nav>
         </div>
-
-        <div class="row type flex-column">
-            <h4 class="p-1 bg-primary text-white text-center">
-                Типы
-            </h4>
-            <div class="row flex-row">
-                <div class="col list-types text-left  flex-row" id="list-types">
+        <div class="col wrapper-currency" id="wrapperCurrency">
+            <!--<div class="col list-currency" id="valueCurrency">-->
+                <div class="col currency-content">
+                    <p>По курсу НБРБ на <span id="currencyContent"></span>: </p>
+                    <p>1 Доллар США: <span id="valueUSD"></span></p>
+                    <p>1 Eвро: <span id="valueEUR"></span></p>
                 </div>
+            <!--</div>-->
+        </div>
+        <div class="col nav-wrapper">
+            <div class="col content-container" id="content">
             </div>
         </div>
-        <div class="row diameter">
-            <h4 class="p-1 bg-primary text-white text-center col-12">
-                Диаметры
-            </h4>
-            <div class="row">
-                <div class="col list-diameters" id="list-diameters">
-                    
-                </div>
+        <div class="col dashboard-wrapper" id="dashboardWrapper">
+            <div class="col dashboard-container" id="dashboardContent">
             </div>
         </div>
     </div>
-
-    <div class="container-fluid represent-product">
-        <div class="row">
-            <form id="DataForm">
-                <div class="row p-2">
-                    <div class="col">Id</div>
-                    <div class="col-2 form-group">
-                        <label>Имя товара</label>
-                        <select name="productTypeId" class="form-control" id="TypeProduct">
-                            <option value="1">Штоки хромированные</option>
-                            <option value="2">Трубы хонингованные</option>
-                        </select>
-                    </div>
-                    <div class="col">
-                        <label>Номер</label>
-                        <input name="number" class="form-control" id="number" value="" />
-                    </div>
-                    <div class="col">
-                        <label>Диаметр</label>
-                        <input name="parameters[2].value" class="form-control" id="diametr" value="" />
-                    </div>
-
-                    <div class="col">
-                        <label>Производитель</label>
-                        <input name="manufacturer" class="form-control" id="manufacturer" value="" />
-                    </div>
-                    <div class="col">
-                        <label>Тип</label>
-                        <input name="[parameters][0][]" class="form-control" id="TypeItem" value="" />
-                    </div>
-                    <div class="col">
-                        <label>Grade steel</label>
-                        <input name="parameters[]" class="form-control" id="GradeSteel" value="" />
-                    </div>
-                    <div class="col">
-                        <label>ЦенаEUR</label>
-                        <input name="primeCostEUR" class="form-control" id="primeCostEUR" value="" />
-                    </div>
-                    <div class="col">
-                        <label>Количество</label>
-                        <input name="amount" class="form-control" id="amount" value="" />
-                    </div>
-                    
-                    <div class="col justify-content-center btn-add">
-                        <button type="submit" class="btn btn-primary  button-add">Добавить</button>
-                    </div>
-                </div>
-            </form>
-        </div>
-        <button id="allDeametr">Все диаметры</button>
-        <button id="sortDeametr">Сортировать диаметры</button>
-        <div id="list-param-products">
-
-            <div class="row text-left list-param" id="list-options">
-                <div class="col">Id</div>
-                <div class="col ">Имя товара</div>
-                <div class="col ">Номер</div>
-                <div class="col ">Диаметр</div>
-                <div class="col ">Производитель</div>
-                <div class="col ">Тип</div>
-                <div class="col ">ЦенаEUR</div>
-                <div class="col ">ЦенаBLR</div>
-                <div class="col ">Количество</div>
-                <div class="col-2">
-                    <div class="col"></div>
-                    <div class="col"></div>
-                </div>
-            </div>
-        </div>
-        <div class="text-center text-white">
-            <a class="btn btn-primary">Групповое добавление</a>
-        </div>
-    </div>
-    <script type="module" src="./lib/js/index.js"></script>
-    <script type="module" src="./lib/js/getOptions.js"></script>
-
+    
+    <script src="/dist/GdmStore.bundle.js"></script>
+    
 </body>
-
 </html>

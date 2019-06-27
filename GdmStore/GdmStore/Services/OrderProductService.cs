@@ -20,35 +20,7 @@ namespace GdmStore.Services
         {
             _context = context;
         }
-
-        //public IEnumerable<OrderProduct> GetAll()
-        //{
-        //    return _context.OrderProducts.ToList();
-        //}
-
-        //public async Task<OrderProduct> GetOrderProduct(int id)
-        //{
-        //    return await _context.OrderProducts.FindAsync(id);
-        //}
-
-        //public async Task<OrderProduct> AddOrderProduct(OrderProduct orderProduct)
-        //{
-        //    _context.OrderProducts.Add(orderProduct);
-        //    await _context.SaveChangesAsync();
-        //    return orderProduct;
-        //}
-
-        //public async Task<OrderProduct> DeleteOrderProduct(int id)
-        //{
-        //    OrderProduct orderProduct = _context.OrderProducts
-        //      .Where(o => o.Id == id)
-        //      .FirstOrDefault();
-
-        //    _context.OrderProducts.Remove(orderProduct);
-        //    await _context.SaveChangesAsync();
-        //    return orderProduct;
-        //}
-
+   
         public async Task<OrderProduct> UpdateOrderProduct(int id, OrderProduct orderProduct)
         {
             OrderProduct p = await GetItem(orderProduct.Id);

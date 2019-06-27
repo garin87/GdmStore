@@ -104,7 +104,6 @@ namespace GdmStore
             return Ok(parameter);
         }
 
-        //private bool ParameterExists(long id) => _context.Parameters.Any(e => e.ParameterId == id);
       
     }
 }

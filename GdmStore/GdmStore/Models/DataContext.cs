@@ -15,8 +15,6 @@ namespace GdmStore.Models
 
         public DataContext(DbContextOptions<DataContext> opts) : base(opts) { }
 
-        //public DbSet<BaseObject> BaseObjects { get; set; }
-
         public DbSet<Product> Products { get; set; }
         public DbSet<ProductType> ProductTypes { get; set; }
         public DbSet<Parameter> Parameters { get; set; }
@@ -77,7 +75,6 @@ namespace GdmStore.Models
             string adminEmail = "admin@gmail.com";
             string adminPassword = "12345";
 
-            // добавляем роли
             Role adminRole = new Role { Id = 1, Name = adminRoleName };
             Role userRole = new Role { Id = 2, Name = userRoleName };
             User adminUser = new User { Id = 1, Email = adminEmail, Password = adminPassword, RoleId = adminRole.Id };
