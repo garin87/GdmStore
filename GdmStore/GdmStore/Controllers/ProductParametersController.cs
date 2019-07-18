@@ -12,7 +12,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace GdmStore
 {
-    [Authorize(Roles = "admin")]
+    // [Authorize(Roles = "admin")]
     [Route("api/[controller]")]
     [ApiController]
     public class ProductParametersController : ControllerBase
@@ -180,6 +180,14 @@ namespace GdmStore
         public async Task<double> GetSumAmountByParam(int typeId, string param, int paramId, int paramDiameterId, string diameter)
         {
             return await _productParameterService.GetSumAmountByParam(typeId, param, paramId, paramDiameterId, diameter);
+        }
+
+        // api/ProductParameters/GetSumPriceByParam/1?param=Стандарт&paramId=1&paramDiameterId=4&diameter=20
+        [HttpGet]
+        [Route("GetSumPriceByParam/{typeId}")]
+        public async Task<double> GetSumPriceByParam(int typeId, string param, int paramId, int paramDiameterId, string diameter)
+        {
+            return await _productParameterService.GetSumPriceByParam(typeId, param, paramId, paramDiameterId, diameter);
         }
 
     }

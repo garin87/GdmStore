@@ -61,23 +61,23 @@ namespace GdmStore.Services
                                   pp => pp.Product.Id,
                                   (pp1, pp) => new ProductDTO
                                   {
-                                    ProductId = pp.Product.Id,
-                                    NameType = pp.Product.ProductType.NameType,
-                                    Number = pp.Product.Number,
-                                    Amount = pp.Product.Amount,
-                                    PrimeCostEUR = pp.Product.PrimeCostEUR,
-                                    ProductTypeId = pp.Product.ProductTypeId,
-                                    Manufacturer = pp.Product.Manufacturer,
-                                    Parameters = pp.Product.ProductParameters
+                                      ProductId = pp.Product.Id,
+                                      NameType = pp.Product.ProductType.NameType,
+                                      Number = pp.Product.Number,
+                                      Amount = pp.Product.Amount,
+                                      PrimeCostEUR = pp.Product.PrimeCostEUR,
+                                      ProductTypeId = pp.Product.ProductTypeId,
+                                      Manufacturer = pp.Product.Manufacturer,
+                                      Parameters = pp.Product.ProductParameters
                                    .Select(par => new ParameterDTO
                                    {
-                                         Id = par.Id,
-                                         ParameterId = par.ParameterId,
-                                         Value = par.Value,
-                                         Name = par.Parameter.Name
+                                       Id = par.Id,
+                                       ParameterId = par.ParameterId,
+                                       Value = par.Value,
+                                       Name = par.Parameter.Name
                                    })
                                    .ToList()
-                                })
+                                  }).OrderBy(p => p.Amount == 0).ThenBy(p => p.Amount)
                                 .ToListAsync();
 
             return products;
@@ -132,6 +132,22 @@ namespace GdmStore.Services
             return Math.Round(sumAmount, 2);
         }
 
+        public async Task<double> GetSumPriceByParam(int typeId, string param, int paramId, int paramDiameterId, string diameter)
+        {
+            var sumPrimeCost = await _context.ProductParameters
+                        .Include(p => p.Product)
+                        .Where(prod => prod.Product.ProductTypeId == typeId)
+                        .Where(pp1 => pp1.Value == param && pp1.ParameterId == paramId)
+                        .Join(_context.ProductParameters.Where(pp => pp.ParameterId == paramDiameterId && pp.Value == diameter),
+                               pp1 => pp1.Product.Id,
+                               pp => pp.Product.Id,
+                               (pp1, pp) => new ProductParameter
+                               {
+                                   Product = pp1.Product,
 
+                               }).SumAsync(a => a.Product.Amount * a.Product.PrimeCostEUR);
+
+            return Math.Round(sumPrimeCost, 2);
+        }
     }
 }

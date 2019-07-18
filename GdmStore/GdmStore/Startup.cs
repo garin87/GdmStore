@@ -4,16 +4,16 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 using GdmStore.Models;
-using GdmStore.Services;
-using GdmStore.Data;
+
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.AspNetCore.Authentication.Cookies;
-using GdmStore.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using System.IO;
 using Microsoft.AspNetCore.DataProtection;
 using Microsoft.AspNetCore.SpaServices.Webpack;
+using GdmStore.Services.Interfaces;
+using GdmStore.Services;
 
 namespace GdmStore
 {
@@ -67,6 +67,22 @@ namespace GdmStore
             services.AddDbContext<DataContext>(options =>
                 options.UseSqlServer(conString));
 
+            //// Use SQL Database if in Azure, otherwise, use SQLite
+            //if (Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") == "Production")
+            //    services.AddDbContext<DataContext>(options =>
+            //            options.UseSqlServer(Configuration.GetConnectionString("MyDbConnection")));
+            //else
+            //    services.AddDbContext<DataContext>(options =>
+            //            options.UseSqlServer(conString));
+
+            //// Automatically perform database migration
+            //services.BuildServiceProvider().GetService<DataContext>().Database.Migrate();
+
+            services.Configure<IISServerOptions>(options =>
+            {
+                options.AutomaticAuthentication = false;
+            });
+           
             services.AddScoped<IBaseServices<BaseObject>, BaseService<BaseObject>>();
             services.AddScoped<IProductService, ProductService>();
             services.AddScoped<IOrderService, OrderService>();
@@ -78,7 +94,7 @@ namespace GdmStore
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, DataContext dataContext)
         {
-            DbInitializer.Initialize(dataContext);
+            Data.DbInitializer.Initialize(dataContext);
 
             if (env.IsDevelopment())
             {
@@ -95,8 +111,8 @@ namespace GdmStore
             app.UseDefaultFiles();
             app.UseStaticFiles();
 
-            app.UseCookiePolicy();
-            app.UseAuthentication();
+            //app.UseCookiePolicy();
+            //app.UseAuthentication();
 
             app.UseMvcWithDefaultRoute();
             app.UseMvc();

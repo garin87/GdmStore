@@ -51,7 +51,7 @@ export default function addProduct() {
                     "parameters": [
                         {
                             "parameterId": typeItem,
-                            "value": document.getElementById('TypeItem').value
+                            "value": document.getElementById('TypeItem').value.toUpperCase()
                         },
                         {
                             "parameterId": 3,
@@ -79,7 +79,7 @@ export default function addProduct() {
                         {
 
                             "parameterId": typeItem,
-                            "value": document.getElementById('TypeItem').value
+                            "value": document.getElementById('TypeItem').value.toUpperCase()
                         },
                         {
 

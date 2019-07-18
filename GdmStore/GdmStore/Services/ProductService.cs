@@ -180,9 +180,7 @@ namespace GdmStore.Services
                    .Include(p => p.ProductType)
                    .Include(pp => pp.ProductParameters)
                    .Where(i => i.Id == id).FirstOrDefault();
-            //var pp = _context.Products.Include(t => t.ProductParameters).FirstOrDefault();
-            
-           //_context.Products.Remove(pp);
+
             _context.Products.Remove(product);
             await _context.SaveChangesAsync();
 
@@ -336,40 +334,6 @@ namespace GdmStore.Services
             return param;
 
         }
-
-
-
-        //var EntryProduct = _context.Products.Find(ProductDTO.ProductId);
-
-        //if (EntryProduct == null)
-        //{
-
-        //    _context.Products.Add(new Product
-        //    {
-        //        Id = ProductDTO.ProductId,
-        //        Number = ProductDTO.Number,
-        //        Amount = ProductDTO.Amount,
-        //        PrimeCostEUR = ProductDTO.PrimeCostEUR,
-        //    });
-        //    _context.SaveChanges();
-
-        //    foreach (var i in ProductDTO.Parameters)
-        //    {
-        //        var EntryParameter = await _context.Parameters.FindAsync(i.Id);
-        //        if (EntryParameter != null)
-        //        {
-        //            _context.ProductParameters.Add(
-        //              new ProductParameter
-        //              {
-        //                  ProductId = ProductDTO.ProductId,
-        //                  ParameterId = i.Id,
-        //                  Value = i.Value
-        //              });
-        //            _context.SaveChanges();
-        //        }
-        //    }
-
-        //}
 
 
     }

@@ -17,7 +17,7 @@ function renderNamesOfProducts(item, i) {
     let div = document.createElement('div');
     let button = document.createElement('button');
 
-    div.className = "col-3"
+    div.className = "col-sm-6 col-md-4 col-lg-3 name-product-button"
     button.className = "btn name-item";
     button.setAttribute("data-NameProductId", item[i].id);
     button.innerHTML = item[i].nameType;

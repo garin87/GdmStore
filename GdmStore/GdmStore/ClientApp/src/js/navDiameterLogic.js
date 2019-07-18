@@ -14,7 +14,7 @@ function renderDiameterOfProducts(item, i) {
     let div = document.createElement('div');
     let button = document.createElement('button');
 
-    div.className = "col-1"
+    div.className = "col-2 col-sm-2 col-dm-1 col-lg-1"
     button.className = "btn  name-item diameter-item";
     button.setAttribute("data-productTypeId", item[i].productTypeId);
     button.setAttribute("data-paramId", item[i].paramId);

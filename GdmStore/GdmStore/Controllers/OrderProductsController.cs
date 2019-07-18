@@ -70,6 +70,21 @@ namespace GdmStore.Controllers
             return NoContent();
         }
 
+        // PUT: api/UpdateOrderP
+        [HttpPut("UpdateOrderP")]
+        public async Task<IActionResult> UpdateOrderP(OrderDTO orderDTO)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+
+            await _orderProductService.UpdateOrderP(orderDTO);
+
+            return NoContent();
+        }
+
         // POST: api/OrderProducts
         [HttpPost]
         public async Task<IActionResult> PostOrderProduct([FromBody] OrderProduct orderProduct)
@@ -107,12 +122,23 @@ namespace GdmStore.Controllers
             return _context.OrderProducts.Any(e => e.Id == id);
         }
 
+
+
+
         // GET: api/OrderProducts/GetOrderByProductId/{id}
         [HttpGet]
         [Route("GetOrderByProductId/{id}")]
         public Task<IEnumerable<OrderPDTO>> GetOrderByProductId(int id)
         {
             return _orderProductService.GetOrderByPruductId(id);
+        }
+
+        // GET: api/OrderProducts/GetOrderByOrderId/{id}
+        [HttpGet]
+        [Route("GetOrderByOrderId/{id}")]
+        public Task<IEnumerable<OrderPDTO>> GetOrderByOrderId(int id)
+        {
+            return _orderProductService.GetOrderByOrderId(id);
         }
     }
 }

@@ -74,7 +74,7 @@ namespace GdmStore.Services
                                           Price = t.Order.Price,
                                           DateTime = t.Order.DateTime,
                                           OrderProducts = t.Order.OrderProduct.Select(jj => new OrderProductDTO
-                                          {
+                                          {   OrderProductId = jj.Id,
                                               Amount = jj.Amount,
                                               ProductId = jj.ProductId,
                                               OrderId = jj.OrderId
@@ -94,6 +94,39 @@ namespace GdmStore.Services
 
         }
 
+        public async Task<IEnumerable<OrderPDTO>> GetOrderByOrderId(int id)
+        {
+            var order = await _context.OrderProducts
+                                      .Include(o => o.Order)
+                                      .Include(op => op.Product)
+                                      .Where(o => o.Order.Id == id)
+                                      .Select(t => new OrderPDTO
+                                      {
+                                          Id = t.Id,
+                                          NameCompany = t.Order.NameCompany,
+                                          Price = t.Order.Price,
+                                          DateTime = t.Order.DateTime,
+                                          OrderProducts = t.Order.OrderProduct.Select(jj => new OrderProductDTO
+                                          {
+                                              OrderProductId = jj.Id,
+                                              Amount = jj.Amount,
+                                              ProductId = jj.ProductId,
+                                              OrderId = jj.OrderId
+                                          }).ToList(),
+                                          ProductOrders = t.Order.OrderProduct.Select(jj => new ProductOrderDTO
+                                          {
+                                              Number = jj.Product.Number,
+                                              Manufacturer = jj.Product.Manufacturer,
+                                              NameType = jj.Product.ProductType.NameType,
+                                              PrimeCostEUR = jj.Product.PrimeCostEUR
+                                          }).ToList(),
+
+                                      })
+                                      .ToListAsync();
+
+            return order;
+
+        }
 
     }
 }

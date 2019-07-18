@@ -5,18 +5,19 @@ const navOrder = `
     <div class="col order-container " id="orderContainer">
          <h2 class="col order-caption  text-center">Заказы</h2>
          <div class="row align-items-center list-button" id="navOrder">
-                <div class="col-3 order-buttons">
+                <div class="col-12 col-md-7 col-xl-3 col-lg-3 order-buttons">
                     <button class="btn col order-bth" id="showOrders">Показать все заказы</button>
                 </div>
-                <div class="col-3">
+                <div class="col-6 col-md-6 col-xl-3 col-lg-3">
                     <label>Поиск заказов по компании </label>
                     <input name="nameCompany" class="form-control" id="nameCompanyOrder" value=""/>
                 </div>
-                <div class= "col-2 order-buttons">
+                <div class= "col-6 col-md-3 col-xl-2 col-lg-2 order-buttons">
                   <button class="btn col  order-bth"  id="searchOrders">Искать</button>
                </div>
          </div>  
     </div>
+    <div class="col order-update" id="orderUpdate"></div>
     `;
 export default navOrder;
 const signboardOrder = `
@@ -42,9 +43,10 @@ const signboardOrder = `
  </div>
 `;
 
-document.body.addEventListener('click', function (event) {
+
+function handleActionOrder(event) {
     const id = event.target.id;
-    const uriOrder = 'http://localhost:5000/api/Orders/GetOrderProducts';
+    const uriOrder = 'api/Orders/GetOrderProducts';
     if (id === "showOrders") {
         removeAllChild("dashboardContent");
         document.getElementById('dashboardContent').insertAdjacentHTML('beforeend', signboardOrder);
@@ -53,7 +55,7 @@ document.body.addEventListener('click', function (event) {
     if (id == 'searchOrders') {
         removeAllChild("dashboardContent");
         document.getElementById('dashboardContent').insertAdjacentHTML('beforeend', signboardOrder);
-        let urlOrders = "http://localhost:5000/api/Orders/GetOrderByNameCompany/";
+        let urlOrders = "api/Orders/GetOrderByNameCompany/";
         let nameCompany = document.getElementById('nameCompanyOrder').value.toUpperCase();
 
         if (nameCompany !== null) {
@@ -61,7 +63,6 @@ document.body.addEventListener('click', function (event) {
             parametersOrderHandler(decodeURIComponent(url2));
         }
     }
-
 
     function removeAllChild(id) {
         if (document.getElementById(id).childNodes.length > 0) {
@@ -71,7 +72,9 @@ document.body.addEventListener('click', function (event) {
             }
         }
     }
-});
+}
+
+document.body.addEventListener('click', handleActionOrder);
 
 
 

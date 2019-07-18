@@ -8,7 +8,7 @@ namespace GdmStore.Models
 {
     public class OrderProduct : BaseObject
     {
-        //public int Id { get; set; }
+       // public int Id { get; set; }
 
         [ForeignKey("ProductId")]
         public int ProductId { get; set; }

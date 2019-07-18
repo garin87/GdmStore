@@ -2,7 +2,7 @@
 import product from './templates/navProduct';
 import getValueCurrency from './templates/currency';
 import addProduct from './templates/addProduct';
-import statistics from './templates/statisticsProducts';
+ // import statistics from './templates/statisticsProducts';
 
 const contentDiv = document.getElementById('content');
 getValueCurrency;
@@ -10,7 +10,7 @@ const routes = {
     '/': product,
     '/orders': orders,
     '/addProduct': addProduct,
-    '/statistics': statistics,
+  //  '/statistics': statistics,
 };
 
 const Router = {
@@ -31,19 +31,26 @@ const Router = {
         if (id == "product") {
             Router.keeptTrack('/');
             removeAllChild("dashboardContent");
+            removeAllChild("actionProduct"); 
+            removeAllChild("pagination"); 
         }
-        if (id == "contact") {
+        if (id == "orders") {
             Router.keeptTrack('/orders');
             removeAllChild("dashboardContent");
+            removeAllChild("actionProduct"); 
+            removeAllChild("pagination"); 
         }
         if (id == "addProduct") {
             Router.keeptTrack('/addProduct');
             removeAllChild("dashboardContent");
+            removeAllChild("actionProduct"); 
+            removeAllChild("pagination"); 
         }
-        if (id == "statistics") {
-            Router.keeptTrack('/statistics');
-            removeAllChild("dashboardContent");
-        }
+        //if (id == "statistics") {
+        //    Router.keeptTrack('/statistics');
+        //    removeAllChild("dashboardContent");
+        //    removeAllChild("actionProduct"); 
+        //}
     })
 }
 

@@ -4,12 +4,13 @@
 ///////////////////////////////////////////////////////////////////////////
 export default function orderHandler(targetProductId) {
 
-    const uriGetParamOrder = 'http://localhost:5000/api/Products/GetParamForOrder/';
+    const uriGetParamOrder = 'api/Products/GetParamForOrder/';
     const urlNRB = 'https://www.nbrb.by/API/ExRates/Rates?Periodicity=0';
 
     viewPriceBLR(uriGetParamOrder + targetProductId, urlNRB);
+
     function getDubleOptions(uriGetParamOrder, urlNRB) {
-        let result = Promise.all([
+        const result = Promise.all([
             fetch(uriGetParamOrder),
             fetch(urlNRB)
         ]).then(async ([items, valueCurrency]) => {
@@ -36,16 +37,29 @@ export default function orderHandler(targetProductId) {
     function ValueOrder(item, i, valueBLR) {
         document.getElementById('numberProduct').value = item[0].number;
         document.getElementById('priceProductBLR').value = (item[0].primeCostEUR * valueBLR[5].Cur_OfficialRate).toFixed(2);
-        document.getElementById('price10').value = ((item[0].primeCostEUR * valueBLR[5].Cur_OfficialRate) * 1.1).toFixed(2);
         document.getElementById('price15').value = ((item[0].primeCostEUR * valueBLR[5].Cur_OfficialRate) * 1.15).toFixed(2);
-        document.getElementById('price20').value = ((item[0].primeCostEUR * valueBLR[5].Cur_OfficialRate) * 1.2).toFixed(2);
+        document.getElementById('price15').setAttribute('data-selling-price', ((item[0].primeCostEUR * valueBLR[5].Cur_OfficialRate) * 1.15).toFixed(2));
+        document.getElementById('price20').value = ((item[0].primeCostEUR * valueBLR[5].Cur_OfficialRate) * 1.20).toFixed(2);
+        document.getElementById('price20').setAttribute('data-selling-price', ((item[0].primeCostEUR * valueBLR[5].Cur_OfficialRate) * 1.20).toFixed(2));
         document.getElementById('price25').value = ((item[0].primeCostEUR * valueBLR[5].Cur_OfficialRate) * 1.25).toFixed(2);
+        document.getElementById('price25').setAttribute('data-selling-price', ((item[0].primeCostEUR * valueBLR[5].Cur_OfficialRate) * 1.25).toFixed(2));
+        document.getElementById('price30').value = ((item[0].primeCostEUR * valueBLR[5].Cur_OfficialRate) * 1.30).toFixed(2);
+        document.getElementById('price30').setAttribute('data-selling-price', ((item[0].primeCostEUR * valueBLR[5].Cur_OfficialRate) * 1.30).toFixed(2));
+        
     }
 
     function formatPriceBLR(item, i, valueBLR) {
         let productPrice = item[i].price * valueBLR[4].Cur_OfficialRate;
     }
+    document.getElementById('orderSave').addEventListener('click', function (e) {
+        const targetPrice = e.target.getAttribute("data-selling-price");
+        if (!targetPrice) { return false; }
 
+        if (targetPrice) {
+            document.getElementById('priceProduct').value = targetPrice;
+        }
+
+    });
     /////////////////////////add order
     document.getElementById('saveOrder').addEventListener('click', function (ev) {
         ev.preventDefault();
@@ -58,7 +72,7 @@ export default function orderHandler(targetProductId) {
             "amount": (document.getElementById('amountProduct')).value
         }
 
-        const uri = "http://localhost:5000/api/Orders/addOrderProduct";
+        const uri = "api/Orders/addOrderProduct";
 
         fetch(uri, {
             method: 'POST',

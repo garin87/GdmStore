@@ -10,10 +10,10 @@ export default function initUpdateProduct(targetProductId) {
 
 
  function renderUpdateProduct(){
-    const updateForm = ` <form id="updateProduct" method="put">
-                <div class="col wrapper-list-update">
+     const updateForm = ` <form class="action-product-form" id="updateProduct" method="put">
+                <div class="flex-xl-row flex-lg-row flex-column flex-md-column wrapper-list-update">
                     <div data-parametrId1="" data-parametrId2="" data-parametrId3=""  id="parametrId"></div>
-                    <div class="col-2 input-update form-group">
+                    <div class="col-lg-2 col-xl-2 input-update form-group">
                         <label>Имя товара</label>
                         <select class="form-control" id="TypeProductUpdate">
                             <option value="1">Штоки</option>
@@ -55,7 +55,7 @@ export default function initUpdateProduct(targetProductId) {
             </form>
 `;
 
-  document.getElementById('content').insertAdjacentHTML('beforeend', updateForm); 
+     document.getElementById('actionProduct').insertAdjacentHTML('beforeend', updateForm); 
 
 }
   

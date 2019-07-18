@@ -8,7 +8,7 @@ using GdmStore.Services;
 
 namespace GdmStore
 {
-    [Authorize(Roles = "admin")] 
+    // [Authorize(Roles = "admin")] 
     [Route("api/[controller]")]
     [ApiController]
     public class ProductsController : Controller

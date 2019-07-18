@@ -141,14 +141,6 @@ namespace GdmStore.Controllers
             return _orderService.GetOrderByNameCompany(nameCompany);
         }
 
-        //// GET: api/Orders/GetOrderByProductId/{id}
-        //[HttpGet]
-        //[Route("GetOrderByProductId/{id}")]
-        //public Task<IEnumerable<OrderPDTO>> GetOrderByProductId(int id)
-        //{
-        //    return _orderService.GetOrderByPruductId(id);
-        //}
-
         // DELETE: api/Orders/DeleteOrders/5
         [HttpDelete("DeleteOrders/{id}")]
         public async Task<IActionResult> DeleteOrders([FromRoute] int id)

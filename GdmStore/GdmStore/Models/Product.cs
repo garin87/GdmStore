@@ -8,6 +8,7 @@ namespace GdmStore.Models
 {
     public class Product : BaseObject
     {
+        public int Id { get; set; }
         public string Name { get; set; }
         public string Number { get; set; }
         public double Amount { get; set; }

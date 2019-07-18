@@ -8,9 +8,9 @@ import initOrderProduct from './orderProduct';
 
 const uriProduct = 'api/ProductTypes';
 const signboardProduct = `
-<div class="col list-name-parameters table-responsive" id="">
-                    <table class="table table-striped table-hover">
-                        <thead class="">
+<div class="col table-responsive-lg list-name-parameters table-responsive" id="pageContent">
+                    <table class="table table-responsive-lg table-striped table-hover">
+                        <thead class="" id="headerTable">
                             <tr class="thead-table">
                                 <th>#</th>
                                 <th>Имя товара</th>
@@ -18,8 +18,8 @@ const signboardProduct = `
                                 <th>Производ.</th>
                                 <th>Тип</th>
                                 <th>Сталь</th>
-                                <th>Диаметр</th>
-                                <th>Зав. ЦенаEUR</th>
+                                <th>Д.&Oslash;</th>
+                                <th>Себ. EUR</th>
                                 <th>Длина</th>
                                 <th></th>
                                 <th></th>
@@ -29,6 +29,7 @@ const signboardProduct = `
                         <tbody class="list-products-parameters" id="listProductsParameters">
                         </tbody
                     </table>
+
                 </div>
           <div class="row products-parameters-container" id="productsParametersContainer">
           </div>
@@ -58,7 +59,7 @@ document.body.addEventListener('click', function (event) {
     function handlerAction() {
         if (targetTypeButton === "Edit") {
             var targetProductId = event.target.getAttribute('data-diameter-product');
-            removeAllChild("content") 
+            removeAllChild("actionProduct") 
             initUpdateProduct(targetProductId);
             console.log(targetProductId);
         }
@@ -69,7 +70,7 @@ document.body.addEventListener('click', function (event) {
         }
         if (targetTypeButton === "Order") {
             var targetProductId = event.target.getAttribute('data-diameter-product');
-            removeAllChild("content") 
+            removeAllChild("actionProduct"); 
             initOrderProduct(targetProductId)
             console.log(targetProductId);
         }
@@ -83,19 +84,22 @@ document.body.addEventListener('click', function (event) {
     }
 
     if (nameProduct) {
-        removeAllChild("signboardType") 
-        removeAllChild("signboardDiameters") 
+        removeAllChild("signboardType"); 
+        removeAllChild("signboardDiameters");
+        removeAllChild("actionProduct"); 
         renderProductType();
     }
 
     if (ProductType) {
-        removeAllChild("signboardDiameters") 
+        removeAllChild("signboardDiameters");
+        removeAllChild("actionProduct"); 
         renderDiameterProduct();
     }
 
     if (ProductDiameter) {
         renderParammeters();
-        removeAllChild("dashboardContent")
+        removeAllChild("dashboardContent");
+        removeAllChild("actionProduct"); 
         document.getElementById('dashboardContent').insertAdjacentHTML('beforeend', signboardProduct);  
     }
 

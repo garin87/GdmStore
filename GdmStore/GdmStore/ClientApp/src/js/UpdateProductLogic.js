@@ -2,7 +2,7 @@
 export default viewValueProduct;
 var targetProductId;
 function viewValueProduct(ProductId) {
-    const uriProduct = "http://localhost:5000/api/Products/GetProductParam/" + ProductId;
+    const uriProduct = "api/Products/GetProductParam/" + ProductId;
      getData(uriProduct)
             .then(function (json) {
                 console.log(json);
@@ -72,7 +72,7 @@ function update(ev) {
                     {
                         "id": document.getElementById('parametrId').getAttribute("data-parametrId1"),
                         "parameterId": typeItem,
-                        "value": document.getElementById('typeUpdate').value
+                        "value": document.getElementById('typeUpdate').value.toUpperCase()
                     },
                     {
                         "id": document.getElementById('parametrId').getAttribute("data-parametrId2"),
@@ -102,7 +102,7 @@ function update(ev) {
                     {
                         "id": document.getElementById('parametrId').getAttribute("data-parametrId1"),
                         "parameterId": typeItem,
-                        "value": document.getElementById('typeUpdate').value
+                        "value": document.getElementById('typeUpdate').value.toUpperCase()
                     },
                     {
                         "id": document.getElementById('parametrId').getAttribute("data-parametrId2"),
@@ -114,7 +114,7 @@ function update(ev) {
         }
 
        
-        let uri = "http://localhost:5000/api/Products/UpdateProducts/" + targetProductId;
+        let uri = "api/Products/UpdateProducts/" + targetProductId;
 
           fetch(uri, {
             method: 'PUT',
@@ -138,14 +138,4 @@ function update(ev) {
 }
 
 document.body.addEventListener('click', update);
-
-//updateProduct();
-//function updateProduct() {
-
-    
-
-//}
-
-
-
 

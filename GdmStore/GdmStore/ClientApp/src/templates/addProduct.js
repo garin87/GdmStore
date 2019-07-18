@@ -3,9 +3,9 @@
 addProduct();
 const addProductForm = `
       <div class="col">
-            <form id="DataForm">
-                <div class="col flex-row wrapper-addProduct">
-                    <div class="col-2 form-group input-update">
+            <form class="action-product-form"  id="DataForm">
+                <div class="flex-xl-row flex-lg-row flex-column flex-md-column wrapper-addProduct">
+                    <div class="col col-xl-2 col-lg-2  form-group input-update">
                         <label>Имя товара</label>
                         <select name="productTypeId" class="form-control control-select" id="TypeProduct">
                             <option value="1">Шток хромированный</option>
@@ -21,7 +21,7 @@ const addProductForm = `
                         <input name="parameters" class="form-control" id="diameter" value="" maxlength="10" />
                     </div>
 
-                    <div class="col-2 input-update">
+                    <div class="col col-xl-2 col-lg-2 input-update">
                         <label>Производитель</label>
                         <input name="manufacturer" class="form-control" id="manufacturer" value=""  maxlength="30" />
                     </div>

@@ -1,10 +1,5 @@
-﻿import parametersHandler from '../js/productsDashboardLogic';
+﻿import { statisticsHandler, parametersHandler } from '../js/productsDashboardLogic';
 
-//function initRenderParammeters() {
-//    parametersHandler
-//}
-
-//export default initRenderParammeters();
 
 export default function renderParammeters() {
     function removeAllchildren() {
@@ -29,12 +24,35 @@ export default function renderParammeters() {
 
         const uriParameters = `api/ProductParameters/GetProductByDiameter/${productTypeId}?param=${productParam}&paramId=${productParamId}&paramDiameterId=${paramDiameterId}&diameter=${DiameterValue}`;
        // const uriParametersRod = `api/ProductParameters/GetProductByDiameter/${productTypeId}?param=${productParam}&paramId=${productParamId}&paramDiameterId=${paramDiameterId}&diameter=${DiameterValue}`;
-
+        const uriStatistics = `api/ProductParameters/GetSumAmountByParam/${productTypeId}?param=${productParam}&paramId=${productParamId}&paramDiameterId=${paramDiameterId}&diameter=${DiameterValue}`;
+        const uriSumPrice = `api/ProductParameters/GetSumPriceByParam/${productTypeId}?param=${productParam}&paramId=${productParamId}&paramDiameterId=${paramDiameterId}&diameter=${DiameterValue}`;
         if (target && productTypeId == rodId) {
-            parametersHandler(uriParameters)
+   
+            statisticsHandler(uriStatistics, uriSumPrice);
+            parametersHandler(uriParameters); 
+           // testPagination();  
         }
         if (target && productTypeId == tubeId) {
-            parametersHandler(uriParameters)
+            statisticsHandler(uriStatistics, uriSumPrice);
+            parametersHandler(uriParameters);
+        }
+
+        
+        function testPagination() {
+            const pagination = `
+<nav aria-label="Page navigation">
+  <ul class="pagination justify-content-end" id="pagination">
+    <li class="page-item disabled">Previous
+    </li>
+    <li class="page-item">1</li>
+    <li class="page-item">2</li>
+    <li class="page-item">3</li>
+    <li class="page-item">Next
+    </li>
+  </ul>
+</nav>
+`;
+            document.getElementById('dashboardContent').insertAdjacentHTML('beforeend', pagination);
         }
     }
 

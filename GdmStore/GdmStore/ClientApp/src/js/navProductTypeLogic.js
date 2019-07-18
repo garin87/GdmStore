@@ -14,7 +14,7 @@ function renderTypeOfProducts(item, i) {
     let div = document.createElement('div');
     let button = document.createElement('button');
 
-    div.className = "col-2"
+    div.className = "col-6 col-sm-3 col-md-2 col-lg-2"
     button.className = "btn  type-item name-item";
     button.setAttribute("data-ProductId", item[i].parameterId); // productTypeId == parameterId
     button.setAttribute("data-ProductType", item[i].value);
@@ -24,23 +24,3 @@ function renderTypeOfProducts(item, i) {
     document.getElementById("listTypes").appendChild(div);
 }
 
-
-//document.body.addEventListener('click', function (event) {
-//    const id = event.target.id;
-//    const target = event.target.hasAttribute("data-NameProductId");
-//    const ProductId = event.target.getAttribute('data-NameProductId');
-
-//    if (target) {
-//        productsHandler(uriType + ProductId)
-//    }
-
-//    if (type) {
-//        if (document.getElementById("signboardType").childNodes.length > 0) {
-//            let element = document.getElementById("signboardType");
-//            while (element.firstChild) {
-//                element.removeChild(element.firstChild);
-//            }
-//        }
-//        renderProductType();
-//    }
-//});

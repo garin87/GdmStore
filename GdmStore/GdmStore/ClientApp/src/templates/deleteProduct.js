@@ -1,6 +1,6 @@
 ﻿
 export default function initDeleteProduct(ProductId) {
-    deleteProduct('http://localhost:5000/api/Products/DeleteProducts/' + ProductId)
+    deleteProduct('api/Products/DeleteProducts/' + ProductId)
     function deleteProduct(url) {
 
         deleteData(url)
