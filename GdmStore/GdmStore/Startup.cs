@@ -67,17 +67,6 @@ namespace GdmStore
             services.AddDbContext<DataContext>(options =>
                 options.UseSqlServer(conString));
 
-            //// Use SQL Database if in Azure, otherwise, use SQLite
-            //if (Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") == "Production")
-            //    services.AddDbContext<DataContext>(options =>
-            //            options.UseSqlServer(Configuration.GetConnectionString("MyDbConnection")));
-            //else
-            //    services.AddDbContext<DataContext>(options =>
-            //            options.UseSqlServer(conString));
-
-            //// Automatically perform database migration
-            //services.BuildServiceProvider().GetService<DataContext>().Database.Migrate();
-
             services.Configure<IISServerOptions>(options =>
             {
                 options.AutomaticAuthentication = false;
